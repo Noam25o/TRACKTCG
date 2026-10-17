@@ -1,0 +1,5 @@
+data/*
+# Preserve the exact validated catalogue when moving to another computer.
+!data/index.json
+!data/build-report.json
+__pycache__/

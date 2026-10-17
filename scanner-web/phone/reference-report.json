@@ -1,0 +1,248 @@
+{
+  "createdAt": "2026-10-09T15:28:12.047Z",
+  "method": "Same JS/WASM engine as browser. Public reference queries, not independent camera accuracy. One query per card. Three held-out references. No images persisted.",
+  "cases": [
+    {
+      "id": "tcgdex:FR:base1-1",
+      "absent": false,
+      "ok": true,
+      "candidates": [
+        {
+          "card": {
+            "id": "tcgdex:FR:base1-1",
+            "name": "Alakazam",
+            "number": "1",
+            "setCode": "base1",
+            "language": "FR"
+          },
+          "inliers": 600,
+          "score": 600
+        },
+        {
+          "card": {
+            "id": "tcgdex:FR:base1-4",
+            "name": "Dracaufeu",
+            "number": "4",
+            "setCode": "base1",
+            "language": "FR"
+          },
+          "inliers": 25,
+          "score": 11.387073798157186
+        }
+      ],
+      "milliseconds": 749,
+      "indexed": 667,
+      "ambiguous": false
+    },
+    {
+      "id": "tcgdex:FR:sv03.5-009",
+      "absent": false,
+      "ok": true,
+      "candidates": [
+        {
+          "card": {
+            "id": "tcgdex:FR:sv03.5-009",
+            "name": "Tortank-ex",
+            "number": "009",
+            "setCode": "sv03.5",
+            "language": "FR"
+          },
+          "inliers": 600,
+          "score": 600
+        },
+        {
+          "card": {
+            "id": "tcgdex:FR:sv03.5-003",
+            "name": "Florizarre-ex",
+            "number": "003",
+            "setCode": "sv03.5",
+            "language": "FR"
+          },
+          "inliers": 36,
+          "score": 30.31302821858724
+        },
+        {
+          "card": {
+            "id": "tcgdex:FR:sv04.5-005",
+            "name": "Terracruel-ex",
+            "number": "005",
+            "setCode": "sv04.5",
+            "language": "FR"
+          },
+          "inliers": 29,
+          "score": 29
+        }
+      ],
+      "milliseconds": 678,
+      "indexed": 667,
+      "ambiguous": false
+    },
+    {
+      "id": "tcgdex:EN:swsh3-1",
+      "absent": false,
+      "ok": true,
+      "candidates": [
+        {
+          "card": {
+            "id": "tcgdex:EN:swsh3-1",
+            "name": "Butterfree V",
+            "number": "1",
+            "setCode": "swsh3",
+            "language": "EN"
+          },
+          "inliers": 600,
+          "score": 600
+        },
+        {
+          "card": {
+            "id": "tcgdex:EN:swsh3.5-5",
+            "name": "Eldegoss V",
+            "number": "5",
+            "setCode": "swsh3.5",
+            "language": "EN"
+          },
+          "inliers": 101,
+          "score": 101
+        },
+        {
+          "card": {
+            "id": "tcgdex:EN:swsh3.5-1",
+            "name": "Venusaur V",
+            "number": "1",
+            "setCode": "swsh3.5",
+            "language": "EN"
+          },
+          "inliers": 84,
+          "score": 84
+        }
+      ],
+      "milliseconds": 669,
+      "indexed": 667,
+      "ambiguous": false
+    },
+    {
+      "id": "tcgdex:EN:swsh3-2",
+      "absent": false,
+      "ok": true,
+      "candidates": [
+        {
+          "card": {
+            "id": "tcgdex:EN:swsh3-2",
+            "name": "Butterfree VMAX",
+            "number": "2",
+            "setCode": "swsh3",
+            "language": "EN"
+          },
+          "inliers": 600,
+          "score": 600
+        }
+      ],
+      "milliseconds": 732,
+      "indexed": 667,
+      "ambiguous": false
+    },
+    {
+      "id": "tcgdex:JP:SV2a-003",
+      "absent": false,
+      "ok": true,
+      "candidates": [
+        {
+          "card": {
+            "id": "tcgdex:JP:SV2a-003",
+            "name": "フシギバナex",
+            "number": "003",
+            "setCode": "SV2a",
+            "language": "JP"
+          },
+          "inliers": 600,
+          "score": 600
+        },
+        {
+          "card": {
+            "id": "tcgdex:JP:SV11B-003",
+            "name": "ジャローダex",
+            "number": "003",
+            "setCode": "SV11B",
+            "language": "JP"
+          },
+          "inliers": 31,
+          "score": 31
+        },
+        {
+          "card": {
+            "id": "tcgdex:JP:M2a-003",
+            "name": "メガヤンマex",
+            "number": "003",
+            "setCode": "M2a",
+            "language": "JP"
+          },
+          "inliers": 28,
+          "score": 17.17257078236678
+        }
+      ],
+      "milliseconds": 703,
+      "indexed": 666,
+      "ambiguous": false
+    },
+    {
+      "id": "tcgdex:JP:SV-P-010",
+      "absent": false,
+      "ok": true,
+      "candidates": [
+        {
+          "card": {
+            "id": "tcgdex:JP:SV-P-010",
+            "name": "モンスターボール",
+            "number": "010",
+            "setCode": "SV-P",
+            "language": "JP"
+          },
+          "inliers": 600,
+          "score": 600
+        },
+        {
+          "card": {
+            "id": "tcgdex:JP:SV-P-011",
+            "name": "ポケモンいれかえ",
+            "number": "011",
+            "setCode": "SV-P",
+            "language": "JP"
+          },
+          "inliers": 25,
+          "score": 24.902300692466937
+        }
+      ],
+      "milliseconds": 760,
+      "indexed": 666,
+      "ambiguous": false
+    },
+    {
+      "id": "tcgdex:FR:xyp-XY209",
+      "absent": true,
+      "ok": true,
+      "candidates": [],
+      "milliseconds": 661,
+      "indexed": 667,
+      "ambiguous": false
+    },
+    {
+      "id": "tcgdex:EN:xyp-XY209",
+      "absent": true,
+      "ok": true,
+      "candidates": [],
+      "milliseconds": 663,
+      "indexed": 667,
+      "ambiguous": false
+    },
+    {
+      "id": "tcgdex:JP:SV11W-172",
+      "absent": true,
+      "ok": true,
+      "candidates": [],
+      "milliseconds": 759,
+      "indexed": 666,
+      "ambiguous": false
+    }
+  ],
+  "failures": []
+}

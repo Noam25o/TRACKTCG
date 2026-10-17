@@ -1,0 +1,147 @@
+{
+  "target": 2000,
+  "startedAt": "2026-10-07T10:54:27.864Z",
+  "failures": [
+    "tcgdex:JP:M-P-003",
+    "tcgdex:EN:xy3-5",
+    "tcgdex:EN:xy4-5",
+    "tcgdex:FR:bw2-5",
+    "tcgdex:FR:sm3-5",
+    "tcgdex:FR:sm3.5-5",
+    "tcgdex:FR:sm4-5",
+    "tcgdex:FR:swshp-SWSH005",
+    "tcgdex:FR:sm2-6",
+    "tcgdex:FR:sm6-6",
+    "tcgdex:FR:sm8-6",
+    "tcgdex:JP:M-P-006",
+    "tcgdex:JP:M-P-007"
+  ],
+  "downloadedBytes": 147518029,
+  "added": 548,
+  "holdouts": [
+    {
+      "id": "tcgdex:FR:xyp-XY209",
+      "name": "Badge",
+      "number": "XY209",
+      "language": "FR",
+      "setCode": "xyp",
+      "images": [
+        {
+          "url": "https://cdn.malie.io/file/malie-io/art/cards/png/fr_FR/XY/Promo_XY-PR_XY/fr_FR-Promo_XY-XY209-badge-op.png",
+          "source": "Malie"
+        }
+      ]
+    },
+    {
+      "id": "tcgdex:FR:xyp-XY210",
+      "name": "Badge",
+      "number": "XY210",
+      "language": "FR",
+      "setCode": "xyp",
+      "images": [
+        {
+          "url": "https://cdn.malie.io/file/malie-io/art/cards/png/fr_FR/XY/Promo_XY-PR_XY/fr_FR-Promo_XY-XY210-badge-op.png",
+          "source": "Malie"
+        }
+      ]
+    },
+    {
+      "id": "tcgdex:FR:xyp-XY211",
+      "name": "Lien Spirituel Lucario",
+      "number": "XY211",
+      "language": "FR",
+      "setCode": "xyp",
+      "images": [
+        {
+          "url": "https://cdn.malie.io/file/malie-io/art/cards/png/fr_FR/XY/Promo_XY-PR_XY/fr_FR-Promo_XY-XY211-lien_spirituel_lucario.png",
+          "source": "Malie"
+        }
+      ]
+    },
+    {
+      "id": "tcgdex:EN:xyp-XY209",
+      "name": "Gym Badge",
+      "number": "XY209",
+      "language": "EN",
+      "setCode": "xyp",
+      "images": [
+        {
+          "url": "https://cdn.malie.io/file/malie-io/art/cards/png/en_US/XY/Promo_XY-PR_XY/en_US-Promo_XY-XY209-gym_badge-op.png",
+          "source": "Malie"
+        }
+      ]
+    },
+    {
+      "id": "tcgdex:EN:xyp-XY210",
+      "name": "Gym Badge",
+      "number": "XY210",
+      "language": "EN",
+      "setCode": "xyp",
+      "images": [
+        {
+          "url": "https://cdn.malie.io/file/malie-io/art/cards/png/en_US/XY/Promo_XY-PR_XY/en_US-Promo_XY-XY210-gym_badge-op.png",
+          "source": "Malie"
+        }
+      ]
+    },
+    {
+      "id": "tcgdex:EN:xyp-XY211",
+      "name": "Lucario Spirit Link",
+      "number": "XY211",
+      "language": "EN",
+      "setCode": "xyp",
+      "images": [
+        {
+          "url": "https://cdn.malie.io/file/malie-io/art/cards/png/en_US/XY/Promo_XY-PR_XY/en_US-Promo_XY-XY211-lucario_spirit_link.png",
+          "source": "Malie"
+        }
+      ]
+    },
+    {
+      "id": "tcgdex:JP:SV11W-172",
+      "name": "バッフロンex",
+      "number": "172",
+      "language": "JP",
+      "setCode": "SV11W",
+      "images": [
+        {
+          "url": "https://tcgplayer-cdn.tcgplayer.com/product/636725_in_400x400.jpg",
+          "source": "TCGplayer JP"
+        }
+      ]
+    },
+    {
+      "id": "tcgdex:JP:SV11W-173",
+      "name": "トウコ",
+      "number": "173",
+      "language": "JP",
+      "setCode": "SV11W",
+      "images": [
+        {
+          "url": "https://tcgplayer-cdn.tcgplayer.com/product/636726_in_400x400.jpg",
+          "source": "TCGplayer JP"
+        }
+      ]
+    },
+    {
+      "id": "tcgdex:JP:SV11W-174",
+      "name": "レシラムex",
+      "number": "174",
+      "language": "JP",
+      "setCode": "SV11W",
+      "images": [
+        {
+          "url": "https://tcgplayer-cdn.tcgplayer.com/product/636727_in_400x400.jpg",
+          "source": "TCGplayer JP"
+        }
+      ]
+    }
+  ],
+  "finishedAt": "2026-10-07T10:58:18.311Z",
+  "counts": {
+    "FR": 667,
+    "EN": 667,
+    "JP": 666
+  },
+  "indexed": 2000
+}

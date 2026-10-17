@@ -1,0 +1,773 @@
+{
+  "createdAt": "2026-10-10T16:54:57.584Z",
+  "method": "Windows Node/WASM, AUTO 3 guide + full-sensor fallback. Six known digital references, three held-out references, three synthetic layouts per card. Not physical photos, iPhone timing, or a general accuracy estimate. Pixels decoded locally, never persisted.",
+  "hashes": {
+    "engine": "4ad91fd69136f25224ced12a19b7590261b8c10bf8086382f64ad2ffb18d45cd",
+    "framing": "99ea3d0337e914d2f027171eb4f7f0a8f3ea1781ff8c72e781b305aee906bb8b",
+    "app": "5283b3bd6853f13f0256854941954d81217602b64eabe00249efe6d9fac84fb6",
+    "index": "798dcae8778cc8df0e91ab8a6924e377baf283f8bebff8a67696d0c93b03742d"
+  },
+  "cases": [
+    {
+      "id": "tcgdex:FR:base1-1",
+      "language": "FR",
+      "source": "https://assets.tcgdex.net/fr/base/base1/1/high.png",
+      "absent": false,
+      "layout": "portrait",
+      "ok": true,
+      "candidates": [
+        {
+          "card": {
+            "id": "tcgdex:FR:base1-1",
+            "name": "Alakazam",
+            "number": "1",
+            "setCode": "base1",
+            "language": "FR"
+          },
+          "inliers": 252,
+          "score": 252
+        }
+      ],
+      "milliseconds": 673,
+      "indexed": 667,
+      "ambiguous": false,
+      "path": "guide"
+    },
+    {
+      "id": "tcgdex:FR:base1-1",
+      "language": "FR",
+      "source": "https://assets.tcgdex.net/fr/base/base1/1/high.png",
+      "absent": false,
+      "layout": "landscape",
+      "ok": true,
+      "candidates": [
+        {
+          "card": {
+            "id": "tcgdex:FR:base1-1",
+            "name": "Alakazam",
+            "number": "1",
+            "setCode": "base1",
+            "language": "FR"
+          },
+          "inliers": 232,
+          "score": 232
+        }
+      ],
+      "milliseconds": 791,
+      "indexed": 667,
+      "ambiguous": false,
+      "path": "guide"
+    },
+    {
+      "id": "tcgdex:FR:base1-1",
+      "language": "FR",
+      "source": "https://assets.tcgdex.net/fr/base/base1/1/high.png",
+      "absent": false,
+      "layout": "perspective",
+      "ok": true,
+      "candidates": [
+        {
+          "card": {
+            "id": "tcgdex:FR:base1-1",
+            "name": "Alakazam",
+            "number": "1",
+            "setCode": "base1",
+            "language": "FR"
+          },
+          "inliers": 285,
+          "score": 285
+        }
+      ],
+      "milliseconds": 1276,
+      "indexed": 667,
+      "ambiguous": false,
+      "path": "guide"
+    },
+    {
+      "id": "tcgdex:FR:sv03.5-009",
+      "language": "FR",
+      "source": "https://cdn.malie.io/file/malie-io/tcgl/cards/png/fr/sv3-5/sv3-5_fr_009_std.png",
+      "absent": false,
+      "layout": "portrait",
+      "ok": true,
+      "candidates": [
+        {
+          "card": {
+            "id": "tcgdex:FR:sv03.5-009",
+            "name": "Tortank-ex",
+            "number": "009",
+            "setCode": "sv03.5",
+            "language": "FR"
+          },
+          "inliers": 167,
+          "score": 167
+        }
+      ],
+      "milliseconds": 1069,
+      "indexed": 667,
+      "ambiguous": false,
+      "path": "guide"
+    },
+    {
+      "id": "tcgdex:FR:sv03.5-009",
+      "language": "FR",
+      "source": "https://cdn.malie.io/file/malie-io/tcgl/cards/png/fr/sv3-5/sv3-5_fr_009_std.png",
+      "absent": false,
+      "layout": "landscape",
+      "ok": true,
+      "candidates": [
+        {
+          "card": {
+            "id": "tcgdex:FR:sv03.5-009",
+            "name": "Tortank-ex",
+            "number": "009",
+            "setCode": "sv03.5",
+            "language": "FR"
+          },
+          "inliers": 168,
+          "score": 168
+        }
+      ],
+      "milliseconds": 1153,
+      "indexed": 667,
+      "ambiguous": false,
+      "path": "guide"
+    },
+    {
+      "id": "tcgdex:FR:sv03.5-009",
+      "language": "FR",
+      "source": "https://cdn.malie.io/file/malie-io/tcgl/cards/png/fr/sv3-5/sv3-5_fr_009_std.png",
+      "absent": false,
+      "layout": "perspective",
+      "ok": true,
+      "candidates": [
+        {
+          "card": {
+            "id": "tcgdex:FR:sv03.5-009",
+            "name": "Tortank-ex",
+            "number": "009",
+            "setCode": "sv03.5",
+            "language": "FR"
+          },
+          "inliers": 160,
+          "score": 160
+        },
+        {
+          "card": {
+            "id": "tcgdex:FR:sv03.5-038",
+            "name": "Feunard-ex",
+            "number": "038",
+            "setCode": "sv03.5",
+            "language": "FR"
+          },
+          "inliers": 24,
+          "score": 17.169310578191542
+        }
+      ],
+      "milliseconds": 1249,
+      "indexed": 667,
+      "ambiguous": false,
+      "path": "guide"
+    },
+    {
+      "id": "tcgdex:FR:xyp-XY209",
+      "language": "FR",
+      "source": "https://cdn.malie.io/file/malie-io/art/cards/png/fr_FR/XY/Promo_XY-PR_XY/fr_FR-Promo_XY-XY209-badge-op.png",
+      "absent": true,
+      "layout": "portrait",
+      "ok": true,
+      "candidates": [],
+      "milliseconds": 2331,
+      "indexed": 667,
+      "ambiguous": false,
+      "path": "guide+full"
+    },
+    {
+      "id": "tcgdex:FR:xyp-XY209",
+      "language": "FR",
+      "source": "https://cdn.malie.io/file/malie-io/art/cards/png/fr_FR/XY/Promo_XY-PR_XY/fr_FR-Promo_XY-XY209-badge-op.png",
+      "absent": true,
+      "layout": "landscape",
+      "ok": true,
+      "candidates": [],
+      "milliseconds": 2437,
+      "indexed": 667,
+      "ambiguous": false,
+      "path": "guide+full"
+    },
+    {
+      "id": "tcgdex:FR:xyp-XY209",
+      "language": "FR",
+      "source": "https://cdn.malie.io/file/malie-io/art/cards/png/fr_FR/XY/Promo_XY-PR_XY/fr_FR-Promo_XY-XY209-badge-op.png",
+      "absent": true,
+      "layout": "perspective",
+      "ok": true,
+      "candidates": [],
+      "milliseconds": 3041,
+      "indexed": 667,
+      "ambiguous": false,
+      "path": "guide+full"
+    },
+    {
+      "id": "blank-0",
+      "language": "FR",
+      "absent": true,
+      "layout": "blank",
+      "ok": true,
+      "candidates": [],
+      "milliseconds": 65,
+      "indexed": 667,
+      "reason": "Image sans détails suffisants",
+      "path": "guide+full"
+    },
+    {
+      "id": "blank-128",
+      "language": "FR",
+      "absent": true,
+      "layout": "blank",
+      "ok": true,
+      "candidates": [],
+      "milliseconds": 65,
+      "indexed": 667,
+      "reason": "Image sans détails suffisants",
+      "path": "guide+full"
+    },
+    {
+      "id": "blank-255",
+      "language": "FR",
+      "absent": true,
+      "layout": "blank",
+      "ok": true,
+      "candidates": [],
+      "milliseconds": 63,
+      "indexed": 667,
+      "reason": "Image sans détails suffisants",
+      "path": "guide+full"
+    },
+    {
+      "id": "tcgdex:EN:swsh3-1",
+      "language": "EN",
+      "source": "https://cdn.malie.io/file/malie-io/art/cards/png/en_US/SWSH/SWSH3-DAA/en_US-SWSH3-001-butterfree_v.png",
+      "absent": false,
+      "layout": "portrait",
+      "ok": true,
+      "candidates": [
+        {
+          "card": {
+            "id": "tcgdex:EN:swsh3-1",
+            "name": "Butterfree V",
+            "number": "1",
+            "setCode": "swsh3",
+            "language": "EN"
+          },
+          "inliers": 194,
+          "score": 194
+        },
+        {
+          "card": {
+            "id": "tcgdex:EN:swsh3.5-5",
+            "name": "Eldegoss V",
+            "number": "5",
+            "setCode": "swsh3.5",
+            "language": "EN"
+          },
+          "inliers": 57,
+          "score": 57
+        },
+        {
+          "card": {
+            "id": "tcgdex:EN:swsh10-001",
+            "name": "Beedrill V",
+            "number": "001",
+            "setCode": "swsh10",
+            "language": "EN"
+          },
+          "inliers": 46,
+          "score": 44.85272006733501
+        }
+      ],
+      "milliseconds": 2719,
+      "indexed": 667,
+      "ambiguous": false,
+      "path": "guide"
+    },
+    {
+      "id": "tcgdex:EN:swsh3-1",
+      "language": "EN",
+      "source": "https://cdn.malie.io/file/malie-io/art/cards/png/en_US/SWSH/SWSH3-DAA/en_US-SWSH3-001-butterfree_v.png",
+      "absent": false,
+      "layout": "landscape",
+      "ok": true,
+      "candidates": [
+        {
+          "card": {
+            "id": "tcgdex:EN:swsh3-1",
+            "name": "Butterfree V",
+            "number": "1",
+            "setCode": "swsh3",
+            "language": "EN"
+          },
+          "inliers": 183,
+          "score": 183
+        },
+        {
+          "card": {
+            "id": "tcgdex:EN:swsh3.5-5",
+            "name": "Eldegoss V",
+            "number": "5",
+            "setCode": "swsh3.5",
+            "language": "EN"
+          },
+          "inliers": 51,
+          "score": 51
+        },
+        {
+          "card": {
+            "id": "tcgdex:EN:swsh10-001",
+            "name": "Beedrill V",
+            "number": "001",
+            "setCode": "swsh10",
+            "language": "EN"
+          },
+          "inliers": 48,
+          "score": 46.93153726438492
+        }
+      ],
+      "milliseconds": 2201,
+      "indexed": 667,
+      "ambiguous": false,
+      "path": "guide"
+    },
+    {
+      "id": "tcgdex:EN:swsh3-1",
+      "language": "EN",
+      "source": "https://cdn.malie.io/file/malie-io/art/cards/png/en_US/SWSH/SWSH3-DAA/en_US-SWSH3-001-butterfree_v.png",
+      "absent": false,
+      "layout": "perspective",
+      "ok": true,
+      "candidates": [
+        {
+          "card": {
+            "id": "tcgdex:EN:swsh3-1",
+            "name": "Butterfree V",
+            "number": "1",
+            "setCode": "swsh3",
+            "language": "EN"
+          },
+          "inliers": 149,
+          "score": 149
+        },
+        {
+          "card": {
+            "id": "tcgdex:EN:swsh1-1",
+            "name": "Celebi V",
+            "number": "1",
+            "setCode": "swsh1",
+            "language": "EN"
+          },
+          "inliers": 42,
+          "score": 41.5186462563457
+        },
+        {
+          "card": {
+            "id": "tcgdex:EN:swsh10.5-005",
+            "name": "Alolan Exeggutor V",
+            "number": "005",
+            "setCode": "swsh10.5",
+            "language": "EN"
+          },
+          "inliers": 36,
+          "score": 36
+        }
+      ],
+      "milliseconds": 2038,
+      "indexed": 667,
+      "ambiguous": false,
+      "path": "guide"
+    },
+    {
+      "id": "tcgdex:EN:swsh3-2",
+      "language": "EN",
+      "source": "https://cdn.malie.io/file/malie-io/art/cards/png/en_US/SWSH/SWSH3-DAA/en_US-SWSH3-002-butterfree_vmax.png",
+      "absent": false,
+      "layout": "portrait",
+      "ok": true,
+      "candidates": [
+        {
+          "card": {
+            "id": "tcgdex:EN:swsh3-2",
+            "name": "Butterfree VMAX",
+            "number": "2",
+            "setCode": "swsh3",
+            "language": "EN"
+          },
+          "inliers": 204,
+          "score": 204
+        }
+      ],
+      "milliseconds": 1924,
+      "indexed": 667,
+      "ambiguous": false,
+      "path": "guide"
+    },
+    {
+      "id": "tcgdex:EN:swsh3-2",
+      "language": "EN",
+      "source": "https://cdn.malie.io/file/malie-io/art/cards/png/en_US/SWSH/SWSH3-DAA/en_US-SWSH3-002-butterfree_vmax.png",
+      "absent": false,
+      "layout": "landscape",
+      "ok": true,
+      "candidates": [
+        {
+          "card": {
+            "id": "tcgdex:EN:swsh3-2",
+            "name": "Butterfree VMAX",
+            "number": "2",
+            "setCode": "swsh3",
+            "language": "EN"
+          },
+          "inliers": 195,
+          "score": 195
+        }
+      ],
+      "milliseconds": 1496,
+      "indexed": 667,
+      "ambiguous": false,
+      "path": "guide"
+    },
+    {
+      "id": "tcgdex:EN:swsh3-2",
+      "language": "EN",
+      "source": "https://cdn.malie.io/file/malie-io/art/cards/png/en_US/SWSH/SWSH3-DAA/en_US-SWSH3-002-butterfree_vmax.png",
+      "absent": false,
+      "layout": "perspective",
+      "ok": true,
+      "candidates": [
+        {
+          "card": {
+            "id": "tcgdex:EN:swsh3-2",
+            "name": "Butterfree VMAX",
+            "number": "2",
+            "setCode": "swsh3",
+            "language": "EN"
+          },
+          "inliers": 193,
+          "score": 193
+        }
+      ],
+      "milliseconds": 2620,
+      "indexed": 667,
+      "ambiguous": false,
+      "path": "guide"
+    },
+    {
+      "id": "tcgdex:EN:xyp-XY209",
+      "language": "EN",
+      "source": "https://cdn.malie.io/file/malie-io/art/cards/png/en_US/XY/Promo_XY-PR_XY/en_US-Promo_XY-XY209-gym_badge-op.png",
+      "absent": true,
+      "layout": "portrait",
+      "ok": true,
+      "candidates": [],
+      "milliseconds": 4523,
+      "indexed": 667,
+      "ambiguous": false,
+      "path": "guide+full"
+    },
+    {
+      "id": "tcgdex:EN:xyp-XY209",
+      "language": "EN",
+      "source": "https://cdn.malie.io/file/malie-io/art/cards/png/en_US/XY/Promo_XY-PR_XY/en_US-Promo_XY-XY209-gym_badge-op.png",
+      "absent": true,
+      "layout": "landscape",
+      "ok": true,
+      "candidates": [],
+      "milliseconds": 4368,
+      "indexed": 667,
+      "ambiguous": false,
+      "path": "guide+full"
+    },
+    {
+      "id": "tcgdex:EN:xyp-XY209",
+      "language": "EN",
+      "source": "https://cdn.malie.io/file/malie-io/art/cards/png/en_US/XY/Promo_XY-PR_XY/en_US-Promo_XY-XY209-gym_badge-op.png",
+      "absent": true,
+      "layout": "perspective",
+      "ok": true,
+      "candidates": [],
+      "milliseconds": 2514,
+      "indexed": 667,
+      "ambiguous": false,
+      "path": "guide+full"
+    },
+    {
+      "id": "blank-0",
+      "language": "EN",
+      "absent": true,
+      "layout": "blank",
+      "ok": true,
+      "candidates": [],
+      "milliseconds": 53,
+      "indexed": 667,
+      "reason": "Image sans détails suffisants",
+      "path": "guide+full"
+    },
+    {
+      "id": "blank-128",
+      "language": "EN",
+      "absent": true,
+      "layout": "blank",
+      "ok": true,
+      "candidates": [],
+      "milliseconds": 55,
+      "indexed": 667,
+      "reason": "Image sans détails suffisants",
+      "path": "guide+full"
+    },
+    {
+      "id": "blank-255",
+      "language": "EN",
+      "absent": true,
+      "layout": "blank",
+      "ok": true,
+      "candidates": [],
+      "milliseconds": 55,
+      "indexed": 667,
+      "reason": "Image sans détails suffisants",
+      "path": "guide+full"
+    },
+    {
+      "id": "tcgdex:JP:SV2a-003",
+      "language": "JP",
+      "source": "https://assets.tcgdex.net/ja/SV/SV2a/003/high.png",
+      "absent": false,
+      "layout": "portrait",
+      "ok": true,
+      "candidates": [
+        {
+          "card": {
+            "id": "tcgdex:JP:SV2a-003",
+            "name": "フシギバナex",
+            "number": "003",
+            "setCode": "SV2a",
+            "language": "JP"
+          },
+          "inliers": 216,
+          "score": 216
+        }
+      ],
+      "milliseconds": 1283,
+      "indexed": 666,
+      "ambiguous": false,
+      "path": "guide"
+    },
+    {
+      "id": "tcgdex:JP:SV2a-003",
+      "language": "JP",
+      "source": "https://assets.tcgdex.net/ja/SV/SV2a/003/high.png",
+      "absent": false,
+      "layout": "landscape",
+      "ok": true,
+      "candidates": [
+        {
+          "card": {
+            "id": "tcgdex:JP:SV2a-003",
+            "name": "フシギバナex",
+            "number": "003",
+            "setCode": "SV2a",
+            "language": "JP"
+          },
+          "inliers": 205,
+          "score": 205
+        }
+      ],
+      "milliseconds": 1223,
+      "indexed": 666,
+      "ambiguous": false,
+      "path": "guide"
+    },
+    {
+      "id": "tcgdex:JP:SV2a-003",
+      "language": "JP",
+      "source": "https://assets.tcgdex.net/ja/SV/SV2a/003/high.png",
+      "absent": false,
+      "layout": "perspective",
+      "ok": true,
+      "candidates": [
+        {
+          "card": {
+            "id": "tcgdex:JP:SV2a-003",
+            "name": "フシギバナex",
+            "number": "003",
+            "setCode": "SV2a",
+            "language": "JP"
+          },
+          "inliers": 219,
+          "score": 219
+        }
+      ],
+      "milliseconds": 1250,
+      "indexed": 666,
+      "ambiguous": false,
+      "path": "guide"
+    },
+    {
+      "id": "tcgdex:JP:SV-P-010",
+      "language": "JP",
+      "source": "https://tcgplayer-cdn.tcgplayer.com/product/587767_in_400x400.jpg",
+      "absent": false,
+      "layout": "portrait",
+      "ok": true,
+      "candidates": [
+        {
+          "card": {
+            "id": "tcgdex:JP:SV-P-010",
+            "name": "モンスターボール",
+            "number": "010",
+            "setCode": "SV-P",
+            "language": "JP"
+          },
+          "inliers": 193,
+          "score": 193
+        }
+      ],
+      "milliseconds": 1319,
+      "indexed": 666,
+      "ambiguous": false,
+      "path": "guide"
+    },
+    {
+      "id": "tcgdex:JP:SV-P-010",
+      "language": "JP",
+      "source": "https://tcgplayer-cdn.tcgplayer.com/product/587767_in_400x400.jpg",
+      "absent": false,
+      "layout": "landscape",
+      "ok": true,
+      "candidates": [
+        {
+          "card": {
+            "id": "tcgdex:JP:SV-P-010",
+            "name": "モンスターボール",
+            "number": "010",
+            "setCode": "SV-P",
+            "language": "JP"
+          },
+          "inliers": 190,
+          "score": 190
+        }
+      ],
+      "milliseconds": 1153,
+      "indexed": 666,
+      "ambiguous": false,
+      "path": "guide"
+    },
+    {
+      "id": "tcgdex:JP:SV-P-010",
+      "language": "JP",
+      "source": "https://tcgplayer-cdn.tcgplayer.com/product/587767_in_400x400.jpg",
+      "absent": false,
+      "layout": "perspective",
+      "ok": true,
+      "candidates": [
+        {
+          "card": {
+            "id": "tcgdex:JP:SV-P-010",
+            "name": "モンスターボール",
+            "number": "010",
+            "setCode": "SV-P",
+            "language": "JP"
+          },
+          "inliers": 208,
+          "score": 208
+        }
+      ],
+      "milliseconds": 1334,
+      "indexed": 666,
+      "ambiguous": false,
+      "path": "guide"
+    },
+    {
+      "id": "tcgdex:JP:SV11W-172",
+      "language": "JP",
+      "source": "https://tcgplayer-cdn.tcgplayer.com/product/636725_in_400x400.jpg",
+      "absent": true,
+      "layout": "portrait",
+      "ok": true,
+      "candidates": [],
+      "milliseconds": 2547,
+      "indexed": 666,
+      "ambiguous": false,
+      "path": "guide+full"
+    },
+    {
+      "id": "tcgdex:JP:SV11W-172",
+      "language": "JP",
+      "source": "https://tcgplayer-cdn.tcgplayer.com/product/636725_in_400x400.jpg",
+      "absent": true,
+      "layout": "landscape",
+      "ok": true,
+      "candidates": [],
+      "milliseconds": 2604,
+      "indexed": 666,
+      "ambiguous": false,
+      "path": "guide+full"
+    },
+    {
+      "id": "tcgdex:JP:SV11W-172",
+      "language": "JP",
+      "source": "https://tcgplayer-cdn.tcgplayer.com/product/636725_in_400x400.jpg",
+      "absent": true,
+      "layout": "perspective",
+      "ok": true,
+      "candidates": [],
+      "milliseconds": 2565,
+      "indexed": 666,
+      "ambiguous": false,
+      "path": "guide+full"
+    },
+    {
+      "id": "blank-0",
+      "language": "JP",
+      "absent": true,
+      "layout": "blank",
+      "ok": true,
+      "candidates": [],
+      "milliseconds": 61,
+      "indexed": 666,
+      "reason": "Image sans détails suffisants",
+      "path": "guide+full"
+    },
+    {
+      "id": "blank-128",
+      "language": "JP",
+      "absent": true,
+      "layout": "blank",
+      "ok": true,
+      "candidates": [],
+      "milliseconds": 60,
+      "indexed": 666,
+      "reason": "Image sans détails suffisants",
+      "path": "guide+full"
+    },
+    {
+      "id": "blank-255",
+      "language": "JP",
+      "absent": true,
+      "layout": "blank",
+      "ok": true,
+      "candidates": [],
+      "milliseconds": 62,
+      "indexed": 666,
+      "reason": "Image sans détails suffisants",
+      "path": "guide+full"
+    }
+  ],
+  "failures": [],
+  "summary": {
+    "total": 36,
+    "passed": 36,
+    "failed": 0,
+    "unavailable": 0,
+    "negative": 18,
+    "ambiguousPositive": 0
+  }
+}

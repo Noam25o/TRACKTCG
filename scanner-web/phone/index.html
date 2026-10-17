@@ -1,0 +1,11 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TRACKTCG · Test sur téléphone</title><link rel="stylesheet" href="./style.css"></head>
+<body><main><span class="tag">LABO · CALCUL SUR CET APPAREIL</span><h1>Scanner sans serveur</h1><p>Essai indépendant. Aucun nom à saisir, aucune photo envoyée. Catalogue partiel : environ 667 cartes par langue.</p>
+<label>Langue des cartes <select id="language"><option>FR</option><option>EN</option><option>JP</option></select></label>
+<button id="load">Charger le moteur et les références</button><p id="cache-info" class="small" role="status">CACHE 1 · Téléchargement compressé à la première visite. Les références sont ensuite conservées sur cet appareil, jamais les photos. Le cache dépend de cette adresse et peut être effacé par Safari.</p>
+<section id="capture" hidden><button id="camera">Ouvrir la caméra</button>
+<label class="auto-option"><input id="auto" type="checkbox" checked> Capture automatique</label>
+<div id="camera-stage" hidden><video id="video" autoplay muted playsinline hidden></video><div id="guide" aria-hidden="true"></div><p id="guide-status" role="status">Place une seule carte dans le cadre</p></div>
+<p id="camera-help" class="small" hidden>Aligne les quatre bords de la carte sur le cadre, sans couper les coins. En auto, le moteur cherche régulièrement ; la caméra s’arrête lorsqu’il trouve une proposition.</p>
+<button id="retry-auto" hidden>Relancer la capture automatique</button><details><summary class="small">Diagnostic capture · AUTO 3</summary><p id="auto-diagnostics" class="small">Ouvre la caméra pour démarrer.</p></details>
+<canvas id="preview" hidden></canvas><button id="scan" disabled>Analyser maintenant</button><label class="file">Ou choisir une photo <input id="photo" type="file" accept="image/jpeg,image/png,image/webp"></label></section>
+<button id="stop" hidden>Arrêter et libérer la mémoire</button><p id="status" role="status" aria-live="polite">Prêt pour le test.</p><ol id="results"></ol><pre id="metrics"></pre><p class="small">Les résultats restent à confirmer. Pas d’OCR du numéro, de prix ou d’ajout à la collection dans cet essai. Photographie limitée à 5 mégapixels. Quitter cette page arrête caméra et moteur.</p></main><script type="module" src="./app.js"></script></body></html>

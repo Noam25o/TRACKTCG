@@ -1,0 +1,26 @@
+TRACKTCG - OCR local expérimental
+
+Tesseract.js 7.0.0, contributeurs naptha/tesseract.js, Apache-2.0.
+Code upstream non modifié : https://github.com/naptha/tesseract.js
+Licence complète : /ocr-assets/tesseract.LICENSE.txt
+Notices des dépendances du worker : /ocr-assets/worker.LICENSE.txt
+
+Tesseract.js-core 7.0.0 et moteur Tesseract, Apache-2.0.
+https://github.com/naptha/tesseract.js-core
+Licence complète : /ocr-assets/core.LICENSE.txt
+
+Modèles fra, eng, jpn : @tesseract.js-data/<lang>@1.0.0,
+4.0.0_best_int (Tessdata Best integerized), naptha/tessdata.
+https://github.com/naptha/tessdata
+Le dépôt upstream des poids est Apache-2.0 ; la métadonnée des paquets npm
+indique MIT pour leur packaging. Conserver les deux indications de provenance.
+Licence Apache-2.0 complète également dans /ocr-assets/core.LICENSE.txt.
+Les fichiers des modèles ne sont pas modifiés par TRACKTCG.
+
+Le pont annulable utilise le protocole du worker v7 figé par package-lock.json.
+Aucun score interne n’est une probabilité de reconnaissance garantie.
+L’OCR n’envoie pas les images caméra au serveur.
+
+Dictionnaire PokéAPI : BSD-3-Clause, licence et provenance dans /pokemon-names.json.
+Pokémon et ses illustrations restent la propriété de leurs ayants droit ;
+les licences du code ne couvrent pas ces illustrations.

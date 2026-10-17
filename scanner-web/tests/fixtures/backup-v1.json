@@ -1,0 +1,15 @@
+{
+  "format": "tracktcg.web-collection",
+  "version": 1,
+  "exportedAt": "2026-10-02T12:00:00.000Z",
+  "entries": [{
+    "id": "ui-test-import-1",
+    "card": {
+      "id": "tcgdex:FR:base1-14", "sourceId": "base1-14", "source": "tcgdex", "language": "FR",
+      "name": "Raichu", "number": "14/102", "localNumber": "14", "setName": "Set de Base", "setCode": "base1",
+      "rarity": "Rare", "finishes": ["Holo"], "images": [], "searchNames": ["Raichu"], "marketPrice": null
+    },
+    "quantity": 1, "condition": "NM", "finish": "Holo", "purchasePriceCents": null,
+    "addedAt": "2026-10-02T12:00:00.000Z"
+  }]
+}

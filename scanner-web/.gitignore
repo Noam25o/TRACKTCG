@@ -1,0 +1,10 @@
+node_modules/
+.certs/
+.tools/
+.env*
+*.pem
+*.key
+*.pfx
+*.p12
+test-results/
+phone/dist/

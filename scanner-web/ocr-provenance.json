@@ -1,0 +1,17 @@
+{
+  "checkedAt": "2026-10-02",
+  "engine": "tesseract.js@7.0.0",
+  "core": "tesseract.js-core@7.0.0",
+  "engineLicense": "Apache-2.0",
+  "modelRepository": "https://github.com/naptha/tessdata",
+  "modelUpstreamLicense": "Apache-2.0",
+  "npmPackagingLicense": "MIT",
+  "modelVariant": "4.0.0_best_int",
+  "models": [
+    { "package": "@tesseract.js-data/fra@1.0.0", "file": "fra.traineddata.gz", "bytes": 707406, "sha256": "d611139672b3752c7097e671e4a1d9209dfd37f2aeb081ef6487fba3351e9255" },
+    { "package": "@tesseract.js-data/eng@1.0.0", "file": "eng.traineddata.gz", "bytes": 2952873, "sha256": "45b4cb346724ac1774f1c36f42f182b887bcdb28ebe63e6fff90ac41f3fcff91" },
+    { "package": "@tesseract.js-data/jpn@1.0.0", "file": "jpn.traineddata.gz", "bytes": 2030256, "sha256": "2b63ebfbf1484de4a08ce53b29ef98a1c17658a93cbd38acb665d7d316d0be88" }
+  ],
+  "transport": "Routes locales exactes et authentifiées ; pas de CDN OCR ou upload de frame",
+  "notes": "Paquets installés avec --ignore-scripts. Les illustrations ne sont pas sous ces licences."
+}

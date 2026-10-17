@@ -1,0 +1,70 @@
+{
+  "createdAt": "2026-10-09T15:24:36.503Z",
+  "runtime": "OpenCV.js WASM on Windows/Node, NOT iPhone",
+  "cases": [
+    {
+      "run": 1,
+      "candidates": [
+        {
+          "card": {
+            "id": "tcgdex:JP:SV-P-001",
+            "name": "ピカチュウ",
+            "number": "001",
+            "setCode": "SV-P",
+            "language": "JP"
+          },
+          "inliers": 227,
+          "score": 227
+        }
+      ],
+      "milliseconds": 836,
+      "indexed": 666,
+      "ambiguous": false
+    },
+    {
+      "run": 2,
+      "candidates": [
+        {
+          "card": {
+            "id": "tcgdex:JP:SV-P-001",
+            "name": "ピカチュウ",
+            "number": "001",
+            "setCode": "SV-P",
+            "language": "JP"
+          },
+          "inliers": 227,
+          "score": 227
+        }
+      ],
+      "milliseconds": 740,
+      "indexed": 666,
+      "ambiguous": false
+    },
+    {
+      "run": 3,
+      "candidates": [
+        {
+          "card": {
+            "id": "tcgdex:JP:SV-P-001",
+            "name": "ピカチュウ",
+            "number": "001",
+            "setCode": "SV-P",
+            "language": "JP"
+          },
+          "inliers": 227,
+          "score": 227
+        }
+      ],
+      "milliseconds": 744,
+      "indexed": 666,
+      "ambiguous": false
+    }
+  ],
+  "blank": {
+    "candidates": [],
+    "milliseconds": 6,
+    "indexed": 666,
+    "reason": "Image sans détails suffisants"
+  },
+  "wasmBytes": 134217728
+}

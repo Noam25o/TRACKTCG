@@ -1,0 +1,37 @@
+{
+  "name": "tracktcg-scanner-web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node server.mjs",
+    "phone:build": "node phone/build.mjs",
+    "phone:preview": "node phone/serve.mjs",
+    "phone:benchmark": "node phone/benchmark.mjs",
+    "phone:benchmark:auto3": "node phone/benchmark-auto3.mjs",
+    "start:lan": "node server.mjs --lan",
+    "share": "node share.mjs --allow-public-test",
+    "share:visual": "node share.mjs --allow-public-test --visual-pc",
+    "visual:build": "node visual/build.mjs",
+    "visual:build:2000": "node visual/build.mjs --target=2000",
+    "visual:benchmark": "node visual/benchmark.mjs",
+    "visual:benchmark:sizes": "node visual/benchmark-sizes.mjs",
+    "ocr:benchmark:cpu": "node visual/ocr-cpu-benchmark.mjs",
+    "visual:test": ".\\.tools\\visual-env\\Scripts\\python.exe -m unittest discover -s visual -p \"test_*.py\"",
+    "test": "node --test tests/*.test.mjs",
+    "check": "node --check server.mjs && node --check share.mjs && node --check catalog.mjs && node --check pricing.mjs && node --check ocr-assets.mjs && node --check public/ocr.mjs && node --check public/app.mjs && node --check public/candidates.mjs && node --check public/collector.mjs && node --check public/automatic.mjs && node --check public/web.mjs && node --check public/collection.mjs && node --check public/storage.mjs && node --check public/vision.mjs && node --check tests/browser-ocr.mjs && node --check tests/browser-visual.mjs && node --check visual/bridge.mjs && node --check visual/build.mjs && node --check visual/benchmark.mjs && node --check visual/benchmark-sizes.mjs"
+  },
+  "devDependencies": {
+    "@techstark/opencv-js": "4.12.0-release.1",
+    "fake-indexeddb": "6.2.5"
+  },
+  "dependencies": {
+    "@tesseract.js-data/eng": "1.0.0",
+    "@tesseract.js-data/fra": "1.0.0",
+    "@tesseract.js-data/jpn": "1.0.0",
+    "tesseract.js": "7.0.0"
+  }
+}
