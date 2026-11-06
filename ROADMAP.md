@@ -4,6 +4,47 @@ Ce document est la référence du projet. L'objectif final est de construire une
 
 ## Avancement
 
+### 22 octobre 2026 — Scan local → fiche → collection intégré
+
+Après les retours iPhone, poursuivre le produit en intégrant le labo AUTO 3 +
+CACHE 1 au scanner de l'application web. Une proposition ouvre la fiche
+existante (repères de prix et ajout confirmé à la collection locale). Garder
+le moteur, les seuils et les 2 000 références ; les photos restent sur le
+téléphone. Conserver le labo autonome et les modes historiques en secours.
+Pas de nouveau catalogue massif, compte distant ni déploiement permanent.
+Réalisé : scanner local proposé par défaut, contrôles isolés et résultat ouvrant
+la fiche exacte. Modes historiques repliés, arrêt des deux scanners au changement
+de mode. URL des références conservées pour réutiliser le cache du même domaine.
+118 tests Node et contrôles de syntaxe réussis, dont sélection exacte, annulation,
+routes statiques authentifiées, absence d'upload par défaut et collection vérifiée.
+Chromium/Windows : Tortank-ex FR reconnue en tête avec le moteur réel, fiche
+151 sv03.5 009/165 FR ouverte ; absence de prix puis repère TCGplayer affichés
+selon la réponse de la source, avec devise et limites explicites.
+Validation du parcours intégré sur iPhone à poursuivre. Le serveur de test Node
+sert les fichiers et métadonnées ; adaptation de ces routes à Cloudflare à venir.
+
+Retour iPhone : reconnaissance et ouverture de la fiche confirmées. Incrément
+suivant : le scanner se prépare désormais en arrière-plan dès l'ouverture de
+l'application. Un appui sur la navigation centrale « Scanner » demande la caméra
+directement ; si la préparation est encore en cours, l'aperçu reste ouvert et
+l'analyse automatique commence dès que le moteur est prêt. Changer FR/EN/JP
+recharge la base et rouvre la caméra sans bouton de chargement intermédiaire.
+
+### 22 octobre 2026 — Mesure de chargement sur iPhone
+
+Reprise du labo AUTO 3 + CACHE 1 via un nouveau tunnel temporaire. L'utilisateur
+rapporte 18 000 ms au premier chargement, puis 1 200 ms après rechargement de la
+page (15 fois plus rapide). Langue, réseau et mention « cache local vérifié »
+non précisés ; deux observations, pas un benchmark général ni une mesure du scan.
+L'utilisateur confirme ensuite Tortank-ex FR sv03.5-009 reconnue en scannant
+l'image de référence proposée ; temps rapporté de 1,4 s, décrit comme
+« chargement », sans confirmation qu'il s'agit du temps moteur. Ce test sur
+image de référence ne valide pas encore une carte physique indépendante.
+Butterfree VMAX EN swsh3-2 : test de l'image de référence proposée sur PC,
+1,2 s rapporté en réponse à la demande du temps d'analyse. L'utilisateur
+confirme l'identifiant affiché « swsh3 . 2 », conforme à la carte attendue.
+Prochaine étape : cartes physiques présentes/absentes et impressions proches.
+
 ### 15 octobre 2026 — CACHE 1 et retour multilingue positif
 
 Utilisateur iPhone 14 Pro : quatre cartes FR/EN/JP reconnues, Badge FR XY209
@@ -33,7 +74,7 @@ conformes (six cartes connues × trois mises en scène = 18 positifs ; trois
 références absentes × trois mises en scène + neuf fonds unis = 18 négatifs).
 Images synthétiques issues de références numériques, pas une précision caméra
 réelle ; 108 tests Node toujours verts. Rapport reproductible
-`scanner-web/phone/auto3-report.json`. Prochain verrou : autres cartes FR/EN/JP
+`web-app/phone/auto3-report.json`. Prochain verrou : autres cartes FR/EN/JP
 sur iPhone et référence absente, avant toute extension du catalogue.
 
 Utilisateur iPhone 14 Pro : fonctionnement parfait signalé après correction.
@@ -84,7 +125,7 @@ ni des mesures iPhone ni un taux de précision général. 93 tests web / sept Py
 réussis. Index 2 000 inchangé, téléchargé par langue (~21,7 Mo) ; runtime ~12,8 Mo,
 réservation WASM 128 Mio hors autres allocations. Validation Safari/mémoire
 nécessaire avant activation dans l'application principale.
-[Labo, protocole et limites](scanner-web/phone/README.md).
+[Labo, protocole et limites](web-app/phone/README.md).
 Cloudflare pour le futur bucket, Firebase facultatif ; aucun VPS, aucun moteur
 de reconnaissance hébergé sur PC. Le lien temporaire sert seulement les fichiers.
 
@@ -116,7 +157,7 @@ serveur en 15,26 s ; Tesseract refuse. Modèle léger en échec sur la version
 réduite, limites sur les minuscules textes et lettres de rareté accolées.
 Mode CPU standard utilisé après échec oneDNN Windows : performances optimisées
 non encore mesurées. Pas d'activation publique, index/tunnel inchangés.
-89 tests web et sept tests Python réussis. [Mesures et limites](scanner-web/visual/OCR_CPU.md).
+89 tests web et sept tests Python réussis. [Mesures et limites](web-app/visual/OCR_CPU.md).
 
 Suite initialement envisagée, remplacée par la contrainte téléphone ci-dessus :
 runtime CPU optimisé et localisation plus ciblée, puis captures réelles
@@ -188,7 +229,7 @@ Moins de points géométriques avec le low, malgré absence d’erreur sur ce lo
 Pas de scans indépendants ni de test de faux positifs ici ; une référence à la
 fois remplacée en RAM, index disque et serveur inchangés. Conserver l’index
 actuel ; valider le low sur photos réelles avant de réduire les références.
-Outil reproductible et rapport détaillé dans `scanner-web/visual`, quatre tests
+Outil reproductible et rapport détaillé dans `web-app/visual`, quatre tests
 Python réussis. Aucun corpus d’images stocké ou transfert R2 effectué.
 
 ### 7 octobre 2026 — Passage à 2 000 références et étude WebP
@@ -245,7 +286,7 @@ et tester aussi des cartes absentes, des impressions proches et des cartes physi
 - Limites conservées : 72 fiches par nom, images absentes, cadrage manuel, pas d’OCR du numéro/extension, noms limités au dictionnaire. Dresseurs/énergies/noms multiples et certaines écritures stylisées encore en recherche manuelle. Aucun taux de fiabilité garanti.
 - Repères Cardmarket EUR / TCGplayer USD via TCGdex dans les fiches : métrique, variante, devise, date de la source, absence/ancienneté indiquées. Aucun prix EN substitué au JP. Langue/état non filtrés et correspondances parfois erronées : pas de valeur certifiée ni de total de portefeuille à ce stade.
 - Collection et sauvegarde JSON v1 inchangées ; prix transitoires exclus des snapshots persistés/importés, coût d’achat séparé. Une erreur tarifaire n’empêche pas l’utilisation des métadonnées locales.
-- 60 tests web réussis (cycles caméra/OCR synthétiques, prix, annulation, sécurité, IndexedDB). OCR réel vérifié dans le navigateur PC sur trois références publiques FR/EN/JP, pas sur caméra physique ; test Safari/iPhone encore à réaliser. Voir [protocole et limites](./scanner-web/README.md).
+- 60 tests web réussis (cycles caméra/OCR synthétiques, prix, annulation, sécurité, IndexedDB). OCR réel vérifié dans le navigateur PC sur trois références publiques FR/EN/JP, pas sur caméra physique ; test Safari/iPhone encore à réaliser. Voir [protocole et limites](./web-app/README.md).
 
 ### 2 octobre 2026 — Refonte UX/UI web sobre et centrée sur les cartes
 
@@ -287,7 +328,7 @@ et tester aussi des cartes absentes, des impressions proches et des cartes physi
 - Serveur local Node sans dépendance supplémentaire, accès par clé éphémère/cookie, proxy limité aux sources publiques approuvées, pas d'uploads, pas d'accès au workspace via HTTP, cache d'images en RAM plafonné. HTTPS iPhone à configurer ; tunnel uniquement après accord explicite.
 - 22 tests web passent (dont contrôleur réel avec caméra/pixels synthétiques) ; 42 tests mobiles, TypeScript et lint passent. Le test physique Safari/iPhone et le benchmark de scans réels restent à effectuer.
 - Rendu inspecté à largeur iPhone sur PC ; chargement réel des lots Dracaufeu FR (69 références/72 fiches, 4,1 s) et JP (40/50, 3,3 s), sans prétendre mesurer le téléphone. Lien HTTPS temporaire Cloudflare ouvert après accord explicite, protégé par clé de session ; binaire officiel 2026.9.3 installé uniquement dans le prototype, empreinte vérifiée. `npm run share` relance volontairement le test ; pas de service permanent ni compte distant créé.
-- [Fonctionnement, limites, HTTPS et parcours de test](./scanner-web/README.md).
+- [Fonctionnement, limites, HTTPS et parcours de test](./web-app/README.md).
 
 ### 2 octobre 2026 — Préparation des tests natifs iPhone
 

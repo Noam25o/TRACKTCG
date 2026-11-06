@@ -32,7 +32,7 @@ Une carte japonaise n'est jamais remplacée par une impression française.
 
 ## Dictionnaire et fonctionnement
 
-`mobile/src/data/pokemon-names.json` contient les noms FR/EN/JP des **1 025
+`expo-app/src/data/pokemon-names.json` contient les noms FR/EN/JP des **1 025
 espèces Pokémon**, avec leur numéro national, la source, la date, son SHA-256 et
 la notice de licence. La source est le fichier
 [PokéAPI pokemon_species_names.csv](https://github.com/PokeAPI/pokeapi/blob/master/data/v2/csv/pokemon_species_names.csv),
@@ -80,7 +80,7 @@ Les données persistées ne sont pas migrées ni réécrites.
 
 ## Actualisation et licence
 
-Depuis `mobile/` :
+Depuis `expo-app/` :
 
 ```powershell
 npm run names:refresh

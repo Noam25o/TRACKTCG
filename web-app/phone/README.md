@@ -1,5 +1,10 @@
 # Labo de reconnaissance sur téléphone — 9 octobre 2026
 
+Depuis le 22 octobre, ce contrôleur est aussi utilisé dans le scanner de
+l'application web principale : propositions → fiche/prix → collection avec
+confirmation. Le labo autonome ci-dessous reste disponible sans ces fonctions.
+Moteur, seuils et index identiques. La version intégrée reste à tester sur iPhone.
+
 Premier portage ORB + pHash + RANSAC dans un Web Worker OpenCV.js/WASM.
 Ce dossier est un **essai indépendant**, pas un remplacement du scanner public
 historique. Ni PaddleOCR, ni Python, ni service d'inférence n'interviennent dans
@@ -145,6 +150,17 @@ d'élargir l'index ; ne pas télécharger le catalogue complet d'un bloc.
 
 ### CACHE 1 — chargement versionné et cache local
 
+22 octobre : reprise iPhone, l'utilisateur rapporte 18 000 ms au premier
+chargement puis 1 200 ms après rechargement de la page, soit un rapport de 15.
+Langue, réseau et mention « cache local vérifié » non précisés. Ce retour ne
+mesure pas le temps du scan. L'utilisateur confirme ensuite Tortank-ex FR
+sv03.5-009 reconnue à partir de l'image de référence proposée, avec 1,4 s
+rapporté comme « chargement » (temps moteur non confirmé). Les essais sur
+cartes physiques indépendantes restent à poursuivre. Test suivant sur l'image
+Butterfree VMAX EN swsh3-2 : 1,2 s rapporté en réponse à la demande du temps
+d'analyse ; identifiant affiché « swsh3 . 2 » confirmé par l'utilisateur,
+conforme à la carte attendue.
+
 - Manifest frais à chaque chargement ; fichiers nommés par SHA-256. Code moteur
   servi avec cache HTTP privé immutable ; index conservé explicitement dans
   CacheStorage, une version par langue, taille et SHA-256 vérifiés à chaque lecture.
@@ -192,7 +208,7 @@ n'est inclus dans `dist/`. Ne pas partager publiquement le lien de test.
 
 ## Reproduire
 
-Depuis `scanner-web` :
+Depuis `web-app` :
 
 ```powershell
 npm ci --ignore-scripts

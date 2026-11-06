@@ -8,13 +8,13 @@ le catalogue public [P-Collector Card DB](https://github.com/posmap-japan/p-coll
 pour trouver des liens du CDN TCGplayer. Les liens TCGdex déjà présents dans ce
 catalogue sont exclus : ils ne constituent pas une source de secours indépendante.
 
-`mobile/src/data/japanese-image-index.json` contient uniquement nom japonais,
+`expo-app/src/data/japanese-image-index.json` contient uniquement nom japonais,
 numéro et suffixe du lien distant, **326 610 octets (~327 Ko)**. TCGdex garde
 la priorité ; le secours est disponible dans le catalogue, les fiches et la
 collection déjà sauvegardée. La mention « Image : TCGplayer JP » identifie le
 visuel de secours réellement chargé. Aucun compte ni clé d'API supplémentaires.
 
-Le [rapport japonais](../mobile/src/data/japanese-image-index-report.json)
+Le [rapport japonais](../expo-app/src/data/japanese-image-index-report.json)
 conserve les volumes par extension, la date et le SHA-256 du fichier source.
 L'extension doit correspondre exactement, y compris sa casse. Le numéro tolère
 uniquement les zéros initiaux numériques ; les préfixes sont conservés. Le nom
@@ -57,19 +57,19 @@ HeartGold/SoulSilver, Noir & Blanc, XY, Soleil et Lune et Épée et Bouclier.
 Les exports récents couvrent Écarlate et Violet et Méga-Évolution, selon les
 cartes disponibles. Les galeries disposent de correspondances séparées.
 
-Le fichier `mobile/src/data/card-image-index.json` contient uniquement nom,
+Le fichier `expo-app/src/data/card-image-index.json` contient uniquement nom,
 numéro et chemin du lien distant, environ **2,77 Mo** au total. Aucune image
 n'est embarquée. Il est consulté immédiatement en mémoire : aucune recherche
 Malie supplémentaire n'est faite à l'ouverture d'une ligne ou d'une fiche.
 Les images sont téléchargées à l'affichage par le composant natif.
 
-Le [rapport généré](../mobile/src/data/card-image-index-report.json) détaille
+Le [rapport généré](../expo-app/src/data/card-image-index-report.json) détaille
 la date, les volumes et les correspondances par extension/source.
 
 ## Fonctionnement
 
 Les métadonnées, identifiants et langues restent ceux de TCGdex. Le résolveur
-`mobile/src/services/card-images.ts` sélectionne les liens pour tous les usages
+`expo-app/src/services/card-images.ts` sélectionne les liens pour tous les usages
 de `CardArtwork` (catalogue, fiche, collection). Aucun changement de collection
 ni réimport n'est nécessaire pour les cartes déjà enregistrées.
 
@@ -124,7 +124,7 @@ restent affichées avec le visuel neutre lorsqu'elles n'ont pas d'image TCGdex.
 
 ## Actualiser l'index
 
-Depuis `mobile/` :
+Depuis `expo-app/` :
 
 ```powershell
 npm run images:refresh

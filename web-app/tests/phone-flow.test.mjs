@@ -27,7 +27,7 @@ test('phone app auto-capture lifecycle with synthetic camera and worker',async t
     finish(found=true){const data=this.pending;this.onmessage({data:{id:data.id,result:{candidates:found?[{card:{name:'Pikachu',number:'001',setCode:'SV-P',language:'JP'}}]:[],milliseconds:500,indexed:666}}});}
   });
   t.after(()=>{for(const [key,descriptor] of originals){if(descriptor)Object.defineProperty(globalThis,key,descriptor);else delete globalThis[key];}});
-  await import('../phone/app.js');
+  const {mountPhoneScanner}=await import('../phone/app.js');
   const el=id=>elements.get(id),flush=async()=>{for(let i=0;i<8;i++)await Promise.resolve();};
   async function tick(delay){const entry=[...timers].find(([,timer])=>timer.delay===delay);assert.ok(entry,'timer '+delay+' exists');timers.delete(entry[0]);now+=delay;void entry[1].fn();await flush();}
 
@@ -90,5 +90,26 @@ test('phone app auto-capture lifecycle with synthetic camera and worker',async t
     await tick(1000);context.getImageData=read;
     assert.equal(el('camera-stage').hidden,true);assert.match(el('auto-diagnostics').textContent,/synthetic pixel read failure/);
     assert.equal(timers.size,0);el('stop').onclick();
+  });
+  await t.test('embedded scanner isolates its controls and opens the exact proposed card',async()=>{
+    const selected=[],cameraStates=[];
+    for(const id of [...elements.keys()])elements.set('phone-'+id,node());
+    el('phone-language').value='EN';el('phone-auto').checked=true;
+    // The manifest is shared at the origin root so cached index URLs survive
+    // the move from the lab to the integrated application.
+    const previousFetch=globalThis.fetch;
+    globalThis.fetch=async()=>({ok:true,json:async()=>({cacheVersion:1,assets:{worker:{file:'worker.'+'a'.repeat(64)+'.js'}},languages:{EN:{file:'index-EN.'+'b'.repeat(64)+'.json',sha256:'b'.repeat(64)}}})});
+    const scanner=mountPhoneScanner({prefix:'phone-',onFound:card=>selected.push(card.id),onCameraChange:active=>cameraStates.push(active),manifestUrl:new URL('https://scanner.example/manifest.json')});
+    await scanner.openCamera();await tick(1000);
+    const job=activeWorker.pending;
+    activeWorker.onmessage({data:{id:job.id,result:{candidates:[{card:{id:'tcgdex:EN:swsh3-2',name:'Butterfree VMAX',number:'2',setCode:'swsh3',language:'EN'}}],milliseconds:1200,indexed:667}}});
+    await flush();
+    assert.equal(el('phone-results').children.length,0);
+    assert.equal(el('phone-camera-stage').hidden,true);
+    assert.deepEqual(selected,['tcgdex:EN:swsh3-2']);
+    assert.deepEqual(cameraStates.slice(0,2),[true,false]);
+    await el('phone-camera').onclick();await tick(1000);scanner.stop();activeWorker.finish();await flush();
+    assert.equal(activeWorker.terminated,true);assert.equal(el('phone-capture').hidden,true);assert.equal(timers.size,0);
+    globalThis.fetch=previousFetch;
   });
 });

@@ -7,6 +7,7 @@ import { resolve } from 'node:path';
 import { allowedImageUrl, searchCards, getCardDetail } from './catalog.mjs';
 import { ocrAssets } from './ocr-assets.mjs';
 import { createVisualBridge } from './visual/bridge.mjs';
+import { servePhoneAsset } from './phone/serve.mjs';
 
 const staticFiles = new Map([
   ['/', ['index.html', 'text/html; charset=utf-8']],
@@ -17,6 +18,7 @@ const staticFiles = new Map([
   ['/collector.mjs', ['collector.mjs', 'text/javascript; charset=utf-8']],
   ['/automatic.mjs', ['automatic.mjs', 'text/javascript; charset=utf-8']],
   ['/web.mjs', ['web.mjs', 'text/javascript; charset=utf-8']],
+  ['/phone-scanner.mjs', ['phone-scanner.mjs', 'text/javascript; charset=utf-8']],
   ['/collection.mjs', ['collection.mjs', 'text/javascript; charset=utf-8']],
   ['/storage.mjs', ['storage.mjs', 'text/javascript; charset=utf-8']],
   ['/ocr.mjs', ['ocr.mjs', 'text/javascript; charset=utf-8']],
@@ -102,7 +104,7 @@ export function createScannerServer({ token = randomBytes(24).toString('hex'),
       const base = new URL(`http://${host}`);
       if (!allowedHost(base.hostname, allowTunnel)) return json(403, { error: 'Hôte refusé.' });
       const url = new URL(req.url, base);
-      if (req.method !== 'GET' && !(visual && req.method === 'POST' && url.pathname === '/api/visual/recognize')) return json(405, { error: 'Méthode refusée pour cette route.' });
+      if (req.method !== 'GET' && !(req.method === 'HEAD' && url.pathname.startsWith('/phone/')) && !(visual && req.method === 'POST' && url.pathname === '/api/visual/recognize')) return json(405, { error: 'Méthode refusée pour cette route.' });
       if (url.pathname === '/' && equals(url.searchParams.get('access'), token)) {
         const secure = Boolean(req.socket.encrypted) || (allowTunnel && base.hostname.endsWith('.trycloudflare.com'));
         res.writeHead(303, { Location: '/', 'Set-Cookie': `scanner_access=${token}; HttpOnly; SameSite=Lax; Path=/${secure ? '; Secure' : ''}` });
@@ -160,12 +162,21 @@ export function createScannerServer({ token = randomBytes(24).toString('hex'),
       }
       if (url.pathname === '/pokemon-names.json') {
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        return res.end(readFileSync(new URL('../mobile/src/data/pokemon-names.json', import.meta.url)));
+        return res.end(readFileSync(new URL('../expo-app/src/data/pokemon-names.json', import.meta.url)));
       }
       if (staticFiles.has(url.pathname)) {
         const [file, type] = staticFiles.get(url.pathname);
         res.writeHead(200, { 'Content-Type': type });
         return res.end(readFileSync(new URL(`public/${file}`, import.meta.url)));
+      }
+      // Root versioned assets preserve the lab's verified reference cache on
+      // this origin. Module sources live under /phone/ to avoid UI collisions.
+      if (url.pathname.startsWith('/phone/') || url.pathname === '/manifest.json'
+        || /^\/(?:index-(?:FR|EN|JP)|opencv|engine|worker|asset-cache)\.[a-f0-9]{64}\.(?:js|json)$/.test(url.pathname)) {
+        try {
+          if (servePhoneAsset(req, res, url.pathname.startsWith('/phone/') ? url.pathname.slice(6) : url.pathname)) return;
+          return json(404, { error: 'Fichier du scanner introuvable.' });
+        } catch { return json(503, { error: 'Construire le scanner avec npm run phone:build.' }); }
       }
       if (url.pathname === '/api/catalog') {
         const result = await searchCards(url.searchParams, async (source) => JSON.parse((await download(source)).bytes.toString('utf8')));

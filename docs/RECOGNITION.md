@@ -1,9 +1,29 @@
 # Reconnaissance — état réel et ordre d’intégration
 
+## 22 octobre 2026 — Scanner local intégré au parcours web
+
+L'application web utilise désormais le même contrôleur AUTO 3 + CACHE 1 que
+le labo autonome. Les propositions ouvrent la fiche exacte via son identifiant
+TCGdex ; les repères de prix existants et l'ajout vérifié à la collection locale
+restent disponibles. Aucun changement moteur/seuil/index, ni upload photo.
+Les modes historiques restent accessibles en secours, avec arrêt des deux
+contrôleurs lors d'un changement de mode. Navigation et arrière-plan arrêtent
+caméra et worker. La collection n'est pas ajoutée automatiquement.
+
+Vérification Chromium/Windows : moteur réel, image de référence Tortank-ex FR
+reconnue en tête, fiche 151 sv03.5 009/165 FR ouverte. Absence de prix affichée
+au premier contrôle, puis un repère TCGplayer disponible à la réouverture,
+avec devise USD, source/date et limites langue/état explicites. Les tests
+automatisés couvrent sélection exacte, annulation, authentification, cache,
+stockage, vérification d'ajout et export/import. Parcours intégré et caméra
+encore à tester sur iPhone ; les tests antérieurs sur téléphone portaient sur
+le labo. Le serveur Node reste ici un outil de prévisualisation et un proxy
+de métadonnées ; la migration de ces routes vers Cloudflare reste à réaliser.
+
 ## 9 octobre 2026 — Portage navigateur disponible en labo
 
 Un essai ORB + pHash + RANSAC fonctionne dans un Web Worker OpenCV.js/WASM,
-sans photo envoyée ni calcul sur serveur. [Protocole](../scanner-web/phone/README.md).
+sans photo envoyée ni calcul sur serveur. [Protocole](../web-app/phone/README.md).
 Pikachu JP retrouvé dans le navigateur PC en 746 ms. Index par langue, aucune
 saisie de nom/numéro ; scan sur clic, langues encore choisies explicitement.
 Pas de PaddleOCR, de prix ou de collection dans cet essai autonome. Le scanner
@@ -84,7 +104,7 @@ Sources primaires consultées :
 PaddleOCR est désormais installé dans un environnement CPU isolé pour le banc
 comparatif ; aucun changement du scanner public. Les autres modèles restent
 à comparer, non installés. Voir le protocole et les mesures dans
-`scanner-web/visual/OCR_CPU.md` ; architecture de recherche neuronale ensuite.
+`web-app/visual/OCR_CPU.md` ; architecture de recherche neuronale ensuite.
 
 ## Parcours actuel sans saisie — 7 octobre 2026
 
@@ -151,7 +171,7 @@ Meilleur candidat mis en avant, alternatives accessibles et ouvertes lorsque
 les scores sont proches ; confirmation d’impression toujours obligatoire.
 75 tests web et trois tests Python réussis. Prochaine validation : captures
 iPhone sur cartes connues/inconnues, impressions proches et cartes physiques,
-puis OCR numéro/extension. Voir [protocole et limites](../scanner-web/visual/README.md).
+puis OCR numéro/extension. Voir [protocole et limites](../web-app/visual/README.md).
 
 ## Décision du 3 octobre 2026 — pilote visuel PC autorisé
 
@@ -179,7 +199,7 @@ Le mode est activé uniquement par `--visual-pc`/`SCAN_VISUAL_PC=true`.
 Les anciens modes restent entièrement locaux ; les descriptions « aucun upload »
 et « pas de redressement » ci-dessous sont **historiques, propres à ces modes**.
 74 tests web et contrôles Python ; pas de précision validée sur iPhone.
-Voir [méthode, audit et limites](../scanner-web/visual/README.md).
+Voir [méthode, audit et limites](../web-app/visual/README.md).
 
 ## Historique — web mobile prioritaire, 2 octobre 2026
 
@@ -213,7 +233,7 @@ ou synchronisation Firebase. Prix indicatifs distincts de la valorisation qualif
 
 Le worker est terminé même pendant son initialisation à l’arrêt/arrière-plan/
 navigation, sans envoi de frames. Versions et empreintes :
-[provenance OCR](../scanner-web/ocr-provenance.json). 71 tests web ; lectures réelles
+[provenance OCR](../web-app/ocr-provenance.json). 71 tests web ; lectures réelles
 sur références publiques dans le navigateur PC, pas un test caméra ou un
 benchmark de fiabilité sur téléphone. L’OCR de démarrage ne remplace pas l’audit
 comparatif et le benchmark des moteurs de la version ultime.
@@ -236,12 +256,12 @@ FR/EN : quatre essais maximum sur capture. Secours pour logos stylisés uniqueme
 si deux traitements du titre ciblé concordent exactement sur nom + suffixe ;
 confiance faible reste une hypothèse de recherche, pas une preuve d’identité ni
 deux scans indépendants. Aucune correction floue ou baisse du seuil du scan en
-direct. Voir les essais et limites dans le [README web](../scanner-web/README.md).
+direct. Voir les essais et limites dans le [README web](../web-app/README.md).
 
 ## Prototype Safari — 2 octobre 2026
 
 Utilisateur sans Mac ni compte Apple Developer payant : voie alternative web
-acceptée, sans remplacer l'app Expo ni sa collection. [Prototype et instructions](../scanner-web/README.md).
+acceptée, sans remplacer l'app Expo ni sa collection. [Prototype et instructions](../web-app/README.md).
 Caméra navigateur et extraction en mémoire ; comparaison visuelle classique
 réelle sur un lot plafonné à 72 fiches FR/EN/JP, contrôles de qualité grossiers,
 marge entre voisins, quatre observations stables et confirmation humaine.

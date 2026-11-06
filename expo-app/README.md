@@ -5,7 +5,7 @@ Application React Native/Expo pour Android et iOS.
 **Décision du 2 octobre 2026 : le produit web mobile est désormais prioritaire.**
 Ce projet et sa collection SQLite sont conservés comme base de fonctionnalités
 et option native ultérieure ; aucune suppression ou migration automatique.
-Le [scanner Safari](../scanner-web/README.md) sert de base web, mais le catalogue
+Le [scanner Safari](../web-app/README.md) sert de base web, mais le catalogue
 complet et la collection Expo restent à intégrer dans cette interface.
 Consulter [l'ordre de travail actuel](../ROADMAP.md#ordre-de-travail) plutôt que
 prendre les prochaines étapes natives ci-dessous comme un prérequis de la V1.

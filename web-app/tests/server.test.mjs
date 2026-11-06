@@ -18,7 +18,7 @@ test('access link becomes HttpOnly cookie; static root cannot expose workspace',
   assert.equal(login.status, 303); assert.match(login.headers.get('set-cookie'), /HttpOnly; SameSite=Lax/);
   const page = await fetch(base, { headers }); assert.equal(page.status, 200);
   assert.match(await page.text(), /Collection & scanner/);
-  for (const route of ['/server.mjs', '/.env', '/mobile/src/data/pokemon-names.json', '/LICENSE', '/favicon.ico']) {
+  for (const route of ['/server.mjs', '/.env', '/expo-app/src/data/pokemon-names.json', '/LICENSE', '/favicon.ico']) {
     assert.equal((await fetch(base + route, { headers })).status, 404);
   }
 });

@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { normalizePricing } from './pricing.mjs';
 
-const dataRoot = new URL('../mobile/src/data/', import.meta.url);
+const dataRoot = new URL('../expo-app/src/data/', import.meta.url);
 const readData = (name) => JSON.parse(readFileSync(new URL(name, dataRoot), 'utf8'));
 const dictionary = readData('pokemon-names.json');
 const malie = readData('card-image-index.json').entries;

@@ -113,6 +113,38 @@ test('web UI preserves the data contract while using compact controls', async (t
     assert.equal(get('detail-status').classList.contains('notice'), true); assert.equal(get('add-verified').checked, false);
     await get('detail-close').fire('click');
   });
+  await t.test('a scan opens the quick result and returns to the live scanner after adding', async () => {
+    document.dispatchEvent(new CustomEvent('tracktcg:open-card', { detail: { id: fixture[0].card.id, source: 'scanner' } }));
+    await until(() => !get('detail-content').hidden);
+    assert.equal(get('card-dialog').classList.contains('scan-result'), true);
+    assert.equal(get('scan-result-summary').hidden, false);
+    assert.equal(get('scan-result-name').textContent, fixture[0].card.name);
+    assert.match(get('scan-result-version').textContent, /14\/102/);
+    assert.match(get('scan-result-price').textContent, /25/);
+    assert.equal(get('add-verified').checked, true);
+    await get('add-form').fire('submit');
+    assert.equal(get('card-dialog').open, false);
+    assert.equal(get('total-cards').textContent, '3');
+    assert.equal(events.at(-1).detail, 'scanner');
+  });
+  await t.test('scan result exposes rarity, details, rescan flow and catalogue exit', async () => {
+    document.dispatchEvent(new CustomEvent('tracktcg:open-card', { detail: { id: fixture[0].card.id, source: 'scanner' } }));
+    await until(() => !get('detail-content').hidden);
+    assert.equal(get('scan-result-rarity').textContent, fixture[0].card.rarity);
+    assert.equal(get('scan-result-language').textContent, '🇫🇷');
+    await get('scan-result-details').fire('click');
+    assert.equal(get('card-dialog').classList.contains('scan-result'), false);
+    assert.equal(get('scan-result-summary').hidden, true);
+    assert.equal(get('detail-content').hidden, false);
+    await get('detail-close').fire('click');
+    assert.equal(events.at(-1).detail, 'scanner');
+
+    document.dispatchEvent(new CustomEvent('tracktcg:open-card', { detail: { id: fixture[0].card.id, source: 'scanner' } }));
+    await until(() => get('scan-result-name').textContent === fixture[0].card.name);
+    await get('scan-result-home').fire('click');
+    assert.equal(get('card-dialog').open, false);
+    assert.equal(events.at(-1).detail, 'catalog');
+  });
   await t.test('market quotes show distinct currencies/variants, never mutate snapshots, and fail explicitly', async () => {
     const before = await store.load();
     document.dispatchEvent(new CustomEvent('tracktcg:open-card', { detail: { id: fixture[0].card.id } }));

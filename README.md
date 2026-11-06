@@ -6,25 +6,30 @@ une option ultérieure, à décider après validation de la version web.
 
 ## État du projet
 
-Un [labo statique de reconnaissance dans le navigateur](scanner-web/phone/README.md)
+Un [labo statique de reconnaissance dans le navigateur](web-app/phone/README.md)
 est disponible depuis le 9 octobre, sans upload ni calcul Python. AUTO 3 a été
 confirmé sur iPhone 14 Pro avec Pikachu et quatre autres cartes FR/EN/JP ; la
 référence Badge absente est refusée. CACHE 1 compresse les téléchargements et
-conserve les références localement. Le gain de cache sur Safari reste à mesurer.
-Ce labo ne remplace pas encore le scanner principal historique ci-dessous.
+conserve les références localement. Le 22 octobre, l'utilisateur rapporte
+18 s au premier chargement puis 1,2 s après rechargement sur iPhone ; Tortank-ex
+FR et Butterfree VMAX EN sont reconnues sur les images de référence proposées.
+Le scanner local est désormais intégré au parcours web principal : les
+propositions ouvrent les fiches, les repères de prix disponibles et l'ajout
+confirmé à la collection. Ce nouveau parcours reste à tester sur iPhone.
+Le labo autonome et les anciens modes sont conservés.
 
 ## Reprendre sur un autre ordinateur
 
 Installer Node.js 22 ou plus récent, récupérer le dépôt, puis :
 
 ```powershell
-cd scanner-web
+cd web-app
 npm ci --ignore-scripts
 npm run phone:build
 npm run phone:preview
 ```
 
-L'index validé de 2 000 références (`scanner-web/visual/data/index.json`, environ
+L'index validé de 2 000 références (`web-app/visual/data/index.json`, environ
 65,4 Mo) est versionné pour reproduire le labo sans Python ni reconstruction du
 catalogue. Les dépendances, outils locaux, fichiers générés, secrets et captures
 de test sont exclus. `phone:preview` affiche un nouveau lien local protégé.
@@ -32,7 +37,7 @@ Pour tester la caméra sur iPhone, recréer un accès HTTPS avec l'outil officie
 cloudflared ou un hébergement statique ; les anciens tunnels ne sont pas transférés.
 Le cache Safari appartient au domaine utilisé et n'est pas contenu dans Git.
 Les éventuelles configurations locales doivent être transférées séparément et
-privément ; `mobile/.env.example` ne contient que les noms des variables.
+privément ; `expo-app/.env.example` ne contient que les noms des variables.
 
 La V1 Pokémon est en cours de construction. Le prototype Safari est la base du
 scanner web : comparaison réelle à un petit lot d'images, candidats à confirmer.
@@ -65,20 +70,20 @@ pas à une publication permanente. Un index visuel partiel de 2 000 empreintes
 Le contrôle synthétique du 7 octobre retrouve la bonne référence en premier sur
 54 requêtes, également avec les références WebP qualité 50 de l’échantillon.
 Ce n’est pas une précision mesurée sur iPhone ; voir le protocole et ses limites
-dans [le bilan visuel](./scanner-web/visual/README.md).
+dans [le bilan visuel](./web-app/visual/README.md).
 
 - [Feuille de route](./ROADMAP.md)
-- [Projet Expo conservé, application native optionnelle](./mobile/README.md)
+- [Projet Expo conservé, application native optionnelle](./expo-app/README.md)
 - [État et prochaines étapes de la reconnaissance](./docs/RECOGNITION.md)
 - [Recherche en français des cartes anglaises et japonaises](./docs/SEARCH_LANGUAGES.md)
-- [Version web, collection et test iPhone sans build natif](./scanner-web/README.md)
+- [Version web, collection et test iPhone sans build natif](./web-app/README.md)
 
-Le moteur ArcFace/PaddleOCR n'est pas intégré au scanner : PaddleOCR est seulement installé dans un [banc CPU isolé](scanner-web/visual/OCR_CPU.md). Le bouton de test du scanner Expo utilise un résultat local de développement clairement identifié. Aucun déploiement permanent ; le prototype Safari peut être exposé par un tunnel temporaire autorisé. Le PC sert au développement, pas de dépendance prévue à son GPU ou à son fonctionnement permanent en production.
+Le moteur ArcFace/PaddleOCR n'est pas intégré au scanner : PaddleOCR est seulement installé dans un [banc CPU isolé](web-app/visual/OCR_CPU.md). Le bouton de test du scanner Expo utilise un résultat local de développement clairement identifié. Aucun déploiement permanent ; le prototype Safari peut être exposé par un tunnel temporaire autorisé. Le PC sert au développement, pas de dépendance prévue à son GPU ou à son fonctionnement permanent en production.
 
 Nouveau pilote web autorisé : capture de la carte entière envoyée via Cloudflare
 au PC Windows, reconnaissance classique OpenCV ORB/RANSAC dans un index
 partiel, sans lecture obligatoire du nom, API d’IA tierce ou photos conservées.
-Activation explicite `npm run share:visual` dans `scanner-web`. Aperçu vivant
+Activation explicite `npm run share:visual` dans `web-app`. Aperçu vivant
 pendant traitement puis candidats à confirmer ; qualité iPhone à mesurer.
 Les anciens modes OCR/manuels gardent l’image sur le téléphone. Le scanner
 Expo reste une démonstration. Aucun tunnel ouvert automatiquement.

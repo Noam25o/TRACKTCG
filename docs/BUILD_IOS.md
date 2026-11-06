@@ -44,7 +44,7 @@ Sources : [compilation locale Expo](https://docs.expo.dev/guides/local-app-devel
 
 ## Continuer dans Expo Go
 
-Depuis `mobile/` :
+Depuis `expo-app/` :
 
 ```powershell
 npm start
@@ -58,7 +58,7 @@ ouvert, ne pas lancer un deuxième serveur sur le même port.
 ## Avec un Mac — après préparation de la chaîne caméra native
 
 Copier le projet sur le Mac, installer les dépendances et connecter l'iPhone.
-Depuis `mobile/` :
+Depuis `expo-app/` :
 
 ```sh
 npm ci

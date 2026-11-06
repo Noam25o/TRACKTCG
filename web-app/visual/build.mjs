@@ -4,8 +4,8 @@ import { createVisualBridge } from './bridge.mjs';
 
 // Explicit CLI only. References decoded in RAM; no image corpus written.
 // A bounded first benchmark pack. --all is an explicit, larger follow-up.
-const entries = { ...JSON.parse(readFileSync(new URL('../../mobile/src/data/card-image-index.json', import.meta.url))).entries,
-  ...JSON.parse(readFileSync(new URL('../../mobile/src/data/japanese-image-index.json', import.meta.url))).entries };
+const entries = { ...JSON.parse(readFileSync(new URL('../../expo-app/src/data/card-image-index.json', import.meta.url))).entries,
+  ...JSON.parse(readFileSync(new URL('../../expo-app/src/data/japanese-image-index.json', import.meta.url))).entries };
 const groups = ['FR:base1-', 'EN:base1-', 'FR:sv03.5-', 'EN:swsh3-', 'JP:SV-P-', 'JP:SV2a-'];
 const targetOption = process.argv.find((arg) => arg.startsWith('--target='));
 const target = targetOption ? Number(targetOption.split('=')[1]) : null;

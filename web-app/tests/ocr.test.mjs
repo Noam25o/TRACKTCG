@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { resolveOcrName, createNameGate, createOcrBridge, titleWords, titleInk, readCardTitle } from '../public/ocr.mjs';
 import { readCardSuffix, suffixSearchQuery, normalizeCardSuffix } from '../public/vision.mjs';
-const dictionary = JSON.parse(readFileSync(new URL('../../mobile/src/data/pokemon-names.json', import.meta.url)));
+const dictionary = JSON.parse(readFileSync(new URL('../../expo-app/src/data/pokemon-names.json', import.meta.url)));
 
 test('OCR resolves native names only, with longest Japanese match and no multi-Pokémon guessing', () => {
   for (const [text, lang, expected] of [['Raichu 120 PV', 'FR', 'Raichu'], ['Évoli', 'FR', 'Évoli'],

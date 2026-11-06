@@ -8,6 +8,35 @@ installe l’OCR et les modèles figés. Pas de build natif.
 
 ## État réel
 
+### 22 octobre 2026 — Scanner local dans l'application
+
+Le scanner principal réutilise AUTO 3 + CACHE 1 du labo, calcul sur le téléphone.
+Charger le scanner, scanner une carte puis choisir « Voir la fiche et les prix »
+ouvre la fiche exacte et l'ajout confirmé à la collection locale. Prix selon
+disponibilité de la source, sans estimation inventée. Les anciens modes sont
+regroupés sous « Autres modes de recherche ». Le labo autonome est conservé.
+
+Avant `npm start` ou `npm run share`, exécuter `npm run phone:build`.
+Les modules `/phone/` et les fichiers versionnés utilisent l'authentification
+du serveur principal. Les URL des références à la racine sont conservées pour
+réutiliser le cache du labo sur la même origine. Aucun upload activé par défaut.
+Le mode PC historique requiert toujours une activation explicite séparée.
+
+118 tests Node et contrôles de syntaxe réussis. Les tests catalogue existants
+utilisent aussi TypeScript du projet mobile ; sur ce PC il a été installé
+isolément dans `.tools/test-deps` (6.0.3), puis les tests ont été lancés avec
+`NODE_PATH` pointant vers son `node_modules`, sans installer Expo.
+Contrôle navigateur Chromium : chargement, reconnaissance réelle Tortank-ex FR,
+ouverture de la fiche 009/165, arrêt moteur et bascule vers les modes de secours.
+Validation du parcours intégré sur Safari/iPhone encore nécessaire.
+
+Retour iPhone ensuite positif : carte reconnue et fiche ouverte. La navigation
+centrale ouvre maintenant directement la caméra. Le moteur et la langue FR par
+défaut se préparent en arrière-plan ; si ce travail n'est pas terminé, caméra et
+guide restent visibles jusqu'au démarrage de l'analyse. Un changement de langue
+relance automatiquement préparation et caméra. Le bouton de chargement n'est
+affiché qu'en cas d'erreur pour permettre une nouvelle tentative.
+
 ### 9 octobre 2026 — Labo sans serveur de reconnaissance
 
 [Essai téléphone](phone/README.md) : ORB dans un worker WebAssembly et fichiers
@@ -293,7 +322,7 @@ et un index compact restent prévus pour plus tard, pas téléchargés maintenan
 Dans PowerShell :
 
 ```powershell
-cd C:\Users\noamz\Documents\ChatGPT\TRACKTCG\scanner-web
+cd C:\Users\noamz\Documents\ChatGPT\TRACKTCG\web-app
 npm start
 ```
 
@@ -328,7 +357,7 @@ par Git et n'est pas redistribué dans le dépôt.
 Sur ce PC, le lancement simplifié est désormais :
 
 ```powershell
-cd C:\Users\noamz\Documents\ChatGPT\TRACKTCG\scanner-web
+cd C:\Users\noamz\Documents\ChatGPT\TRACKTCG\web-app
 npm run share
 ```
 

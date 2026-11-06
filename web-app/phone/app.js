@@ -1,30 +1,38 @@
 import {guideRect} from './framing.js';
 import {loadManifest} from './loading.js';
-const $=id=>document.getElementById(id);
-let worker=null,stream=null,loaded=false,pixels=null,sequence=0,generation=0,analyzing=false;
-let autoTimer=null,cameraSession=0;
+export function mountPhoneScanner({prefix='',onSelect,onFound,onCameraChange,manifestUrl}={}){
+const $=id=>document.getElementById(prefix+id);
+let worker=null,stream=null,loaded=false,pixels=null,sequence=0,generation=0,analyzing=false,loadTask=null;
+let autoTimer=null,cameraSession=0,cameraActive=false;
 let manifestController=null;
 const jobs=new Map();
 function busy(value){$('photo').disabled=value;$('camera').disabled=value;}
 function stopAutomatic(){clearTimeout(autoTimer);autoTimer=null;$('guide').dataset.state='';$('retry-auto').hidden=true;}
-function stopCamera(){cameraSession++;stopAutomatic();stream?.getTracks().forEach(t=>t.stop());stream=null;$('video').srcObject=null;$('video').hidden=true;$('camera-stage').hidden=true;$('camera-help').hidden=true;}
+function setCameraActive(value){if(cameraActive===value)return;cameraActive=value;onCameraChange?.(value);}
+function stopCamera(){cameraSession++;stopAutomatic();stream?.getTracks().forEach(t=>t.stop());stream=null;$('video').srcObject=null;$('video').hidden=true;$('camera-stage').hidden=true;$('camera-help').hidden=true;setCameraActive(false);}
 function clearPixels(){pixels=null;$('preview').width=$('preview').height=0;$('preview').hidden=true;$('photo').value='';}
-function stop(){generation++;manifestController?.abort();manifestController=null;worker?.terminate();worker=null;loaded=false;analyzing=false;stopCamera();clearPixels();busy(false);for(const job of jobs.values()){clearTimeout(job.timer);job.reject(Error('Analyse arrêtée'));}jobs.clear();$('capture').hidden=true;$('stop').hidden=true;$('load').disabled=false;$('scan').disabled=true;}
+function stop(){generation++;manifestController?.abort();manifestController=null;loadTask=null;worker?.terminate();worker=null;loaded=false;analyzing=false;stopCamera();clearPixels();busy(false);for(const job of jobs.values()){clearTimeout(job.timer);job.reject(Error('Analyse arrêtée'));}jobs.clear();$('capture').hidden=true;$('stop').hidden=true;$('load').disabled=false;$('scan').disabled=true;}
 function request(action,data={},transfer=[]){return new Promise((resolve,reject)=>{const id=++sequence;const timer=setTimeout(()=>{stop();$('status').textContent='Délai dépassé. Le moteur a été arrêté.';},60000);jobs.set(id,{resolve,reject,timer});worker.postMessage({id,action,...data},transfer);});}
-$('load').onclick=async()=>{
+async function loadScanner(){
+  if(loaded)return true;
+  if(loadTask)return loadTask;
   stop();const run=generation,start=performance.now();$('results').replaceChildren();$('metrics').textContent='';$('load').disabled=true;$('stop').hidden=false;$('status').textContent='Chargement local du moteur et de l’index…';
-  try{
+  const task=(async()=>{try{
     const language=$('language').value,controller=new AbortController();manifestController=controller;
     const timer=setTimeout(()=>controller.abort(),15000);let version;
-    try{version=await loadManifest(language,controller.signal);}finally{clearTimeout(timer);}
-    if(run!==generation)return;manifestController=null;
+    try{version=await loadManifest(language,controller.signal,manifestUrl);}finally{clearTimeout(timer);}
+    if(run!==generation)return false;manifestController=null;
     worker=new Worker(version.worker);worker.onerror=event=>{if(run!==generation)return;stop();$('status').textContent='Initialisation impossible : '+(event.message||'WebAssembly indisponible');};worker.onmessage=({data})=>{if(run!==generation)return;const job=jobs.get(data.id);if(!job)return;if(data.progress){$('status').textContent=data.progress;return;}jobs.delete(data.id);clearTimeout(job.timer);data.error?job.reject(Error(data.error)):job.resolve(data.result);};
-    const result=await request('init',{language,asset:version.asset});if(run!==generation)return;
+    const result=await request('init',{language,asset:version.asset});if(run!==generation)return false;
     loaded=true;$('capture').hidden=false;$('status').textContent=result.indexed+' références prêtes. La photo restera ici.';$('metrics').textContent='Chargement : '+Math.round(performance.now()-start)+' ms\nMémoire WASM réservée : '+(result.wasmBytes?Math.round(result.wasmBytes/1048576)+' Mio':'non mesurée')+' (pas la mémoire totale)\n'+navigator.userAgent;
     $('cache-info').textContent=result.referenceSource==='cache'?'Références '+language+' : cache local vérifié, aucun téléchargement de l’index.':result.cacheAvailable?'Références '+language+' téléchargées et conservées pour les prochaines visites.':'Références chargées. Cache indisponible : prochain téléchargement nécessaire.';
     $('metrics').textContent+='\nRéférences : '+(result.referenceSource==='cache'?'cache local vérifié':'réseau')+' · CACHE 1';
-  }catch(error){if(run===generation){stop();$('status').textContent=error.message;}}
-};
+    return true;
+  }catch(error){if(run===generation){stop();$('status').textContent=error.message;$('load').hidden=false;$('load').textContent='Réessayer le chargement';}return false;}})();
+  loadTask=task;
+  try{return await task;}finally{if(loadTask===task)loadTask=null;}
+}
+$('load').onclick=loadScanner;
 $('language').onchange=()=>{stop();$('results').replaceChildren();$('status').textContent='Recharge le moteur pour cette langue.';};
 $('stop').onclick=()=>{stop();$('status').textContent='Caméra et moteur arrêtés.';};
 function startAutomatic(){
@@ -42,7 +50,7 @@ function startAutomatic(){
     if(analyzing||video.readyState<2||!video.videoWidth||!video.videoHeight){
       $('guide-status').textContent='Attente de l’image caméra…';autoTimer=setTimeout(tick,250);return;
     }
-    attempts++;$('guide-status').textContent='Recherche sur le téléphone · essai '+attempts+'/10';
+    attempts++;$('guide-status').textContent='Place la carte dans le cadre';
     $('auto-diagnostics').textContent='AUTO 3 · essai '+attempts+'/10 · cadre 63:88 · aucun seuil de stabilité';
     await analyze(true);
     if(session!==cameraSession||!stream||!loaded||!$('auto').checked||document.hidden)return;
@@ -55,21 +63,27 @@ function startAutomatic(){
 }
 $('auto').onchange=startAutomatic;
 $('retry-auto').onclick=startAutomatic;
-$('camera').onclick=async()=>{
-  if(!loaded||analyzing)return;
-  const run=generation;busy(true);$('scan').disabled=true;
+async function openCamera(){
+  if(stream)return true;
+  if(analyzing)return false;
+  const ready=loaded?Promise.resolve(true):loadScanner();
+  const run=generation;busy(true);$('scan').disabled=true;$('capture').hidden=false;
   try{
     stopCamera();clearPixels();$('results').replaceChildren();
     const camera=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:1920},height:{ideal:1080}}});
-    if(run!==generation){camera.getTracks().forEach(t=>t.stop());return;}
-    stream=camera;$('video').srcObject=stream;$('video').hidden=false;$('camera-stage').hidden=false;$('camera-help').hidden=false;
-    await $('video').play();if(run!==generation)return;
+    if(run!==generation){camera.getTracks().forEach(t=>t.stop());return false;}
+    stream=camera;$('video').srcObject=stream;$('video').hidden=false;$('camera-stage').hidden=false;$('camera-help').hidden=false;setCameraActive(true);
+    await $('video').play();if(run!==generation)return false;
     $('camera-stage').scrollIntoView?.({block:'start',behavior:'smooth'});
+    $('status').textContent='Caméra ouverte · préparation du scanner…';
+    if(!await ready||run!==generation){stopCamera();return false;}
     $('scan').disabled=false;$('status').textContent='Place une seule carte dans le cadre. Aucun nom à saisir.';
     startAutomatic();
-  }catch(error){if(run===generation){stopCamera();$('status').textContent='Caméra indisponible : '+error.message;}}
+    return true;
+  }catch(error){if(run===generation){stopCamera();$('status').textContent='Caméra indisponible : '+error.message;}return false;}
   finally{if(run===generation)busy(false);}
-};
+}
+$('camera').onclick=openCamera;
 function capture(source,width,height,rect={x:0,y:0,width,height},show=true){
   if(!(rect.width>0&&rect.height>0))throw Error('Attends que la caméra soit prête.');
   const scale=Math.min(1,Math.sqrt(5000000/(rect.width*rect.height))),canvas=show?$('preview'):document.createElement('canvas');canvas.width=Math.floor(rect.width*scale);canvas.height=Math.floor(rect.height*scale);
@@ -116,7 +130,13 @@ async function analyze(automatic=false){
     const found=result.candidates.length>0;
     if(found)stopCamera();
     $('status').textContent=found?'Vérifie la bonne référence ci-dessous.':automatic?'Pas encore de proposition : rapproche la carte et évite les reflets.':'Aucune correspondance fiable. Réessaie sans reflets ; cette carte peut aussi manquer à l’index.';
-    for(const {card} of result.candidates){const li=document.createElement('li');li.textContent=card.name+' — '+(card.setName||card.setCode)+' · '+card.number+' ('+card.language+')';$('results').append(li);}
+    if(found&&onFound){
+      onFound(result.candidates[0].card);
+    }else for(const {card} of result.candidates){
+      const li=document.createElement('li');li.textContent=card.name+' — '+(card.setName||card.setCode)+' · '+card.number+' ('+card.language+')';
+      if(onSelect){const button=document.createElement('button');button.type='button';button.textContent='Voir la fiche et les prix';button.onclick=()=>onSelect(card.id);li.append(button);}
+      $('results').append(li);
+    }
     $('metrics').textContent+='\n'+(automatic?'Auto · ':'')+'Analyse moteur : '+engineMs+' ms · total : '+Math.round(performance.now()-start)+' ms · '+(usedFallback?'cadre puis image complète':'zone cadrée ou photo importée')+' · '+result.indexed+' références';
     if(found||!automatic)$('camera').textContent='Scanner une autre carte';
   }catch(error){
@@ -129,3 +149,8 @@ async function analyze(automatic=false){
 $('scan').onclick=()=>analyze();
 document.addEventListener('visibilitychange',()=>{if(document.hidden){stop();$('status').textContent='Arrêt automatique en arrière-plan. Recharge pour reprendre.';}});
 window.addEventListener('pagehide',stop);
+return {stop,load:loadScanner,openCamera,isLoaded:()=>loaded};
+}
+// The standalone lab keeps its original entry point. The web app mounts the
+// same controller with prefixed IDs, without a second recognition engine.
+if(document.getElementById('load'))mountPhoneScanner();

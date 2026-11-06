@@ -9,5 +9,5 @@ __pycache__/
 .DS_Store
 
 # Local screenshots can contain user photos or temporary access links
-scanner-web/test-artifacts/
-scanner-web/*-proof.png
+web-app/test-artifacts/
+web-app/*-proof.png

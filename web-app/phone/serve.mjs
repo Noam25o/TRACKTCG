@@ -30,7 +30,14 @@ export function createPhoneServer({token=randomBytes(24).toString('hex')}={}){
       if(url.pathname==='/'&&equal(url.searchParams.get('access'))){res.writeHead(303,{Location:'/', 'Set-Cookie':`phone_access=${token}; HttpOnly; SameSite=Lax; Path=/${host.endsWith('.trycloudflare.com')?'; Secure':''}`});res.end();return;}
       const cookie=(req.headers.cookie||'').split(';').map(v=>v.trim()).find(v=>v.startsWith('phone_access='))?.slice(13);
       if(!equal(cookie))return end(401,'Lien de test requis');
-      const asset=builtAsset(url.pathname),file=asset?.file||files.get(url.pathname);if(!file)return end(404,'Introuvable');
+      if(!servePhoneAsset(req,res,url.pathname))return end(404,'Introuvable');
+    }catch{return end(503,'Construire le labo avec npm run phone:build');}
+  });return {server,token};
+}
+// Static files only. The caller must authenticate before invoking this helper.
+// Used by both the isolated lab and the main application's local scanner.
+export function servePhoneAsset(req,res,path){
+      const asset=builtAsset(path),file=asset?.file||files.get(path);if(!file)return false;
       const encoding=asset?encodingFor(req.headers['accept-encoding']):null;
       const suffix=encoding==='br'?'.br':encoding==='gzip'?'.gz':'';
       if(asset){
@@ -39,13 +46,12 @@ export function createPhoneServer({token=randomBytes(24).toString('hex')}={}){
         // managed and verified by asset-cache.js. Never cache auth or HTML.
         res.setHeader('Cache-Control',file.endsWith('.js')?'private, max-age=31536000, immutable':'private, no-store');
         const etag=`"${asset.sha256}-${encoding||'identity'}"`;res.setHeader('ETag',etag);
-        if(req.headers['if-none-match']===etag&&file.endsWith('.js')){res.writeHead(304);res.end();return;}
+        if(req.headers['if-none-match']===etag&&file.endsWith('.js')){res.writeHead(304);res.end();return true;}
       }
       const bytes=readFileSync(new URL(`dist/${file}${suffix}`,import.meta.url));
       if(encoding)res.setHeader('Content-Encoding',encoding);
       res.writeHead(200,{'Content-Type':types[file.split('.').at(-1)],'Content-Length':bytes.length});res.end(req.method==='HEAD'?undefined:bytes);
-    }catch{return end(503,'Construire le labo avec npm run phone:build');}
-  });return {server,token};
+      return true;
 }
 if(process.argv[1]&&fileURLToPath(import.meta.url)===resolve(process.argv[1])){
   const {server,token}=createPhoneServer();server.listen(8791,'127.0.0.1',()=>console.log(`Labo statique : http://localhost:8791/?access=${token}`));

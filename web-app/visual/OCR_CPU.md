@@ -96,7 +96,7 @@ testées auparavant appartiennent au lot de réglage, pas au test indépendant.
 
 ## Rejouer volontairement
 
-Depuis `scanner-web`, après installation de Python 3.13 et des dépendances npm :
+Depuis `web-app`, après installation de Python 3.13 et des dépendances npm :
 
 ```powershell
 python -m venv .tools/ocr-cpu-env

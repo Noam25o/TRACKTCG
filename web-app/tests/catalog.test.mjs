@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 import { allowedImageUrl, imageSources, searchCards, translateQuery, getCardDetail } from '../catalog.mjs';
 const require = createRequire(import.meta.url);
-const loadTS = require('../../mobile/tests/load-typescript.cjs');
+const loadTS = require('../../expo-app/tests/load-typescript.cjs');
 const mobileSearch = loadTS('src/services/pokemon-search.ts');
 const mobileImages = loadTS('src/services/card-images.ts');
 

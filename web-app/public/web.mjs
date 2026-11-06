@@ -10,6 +10,7 @@ let screen = 'catalog', entries = [], storeReady = false, saving = false, pendin
 let browseCards = [], browsePage = 0, browseGeneration = 0, browseAbort = null, browseTimer = null;
 let detailGeneration = 0, detailAbort = null, activeCard = null, collectionGeneration = 0;
 let quotes = [], priceAbort = null, priceGeneration = 0;
+let scanResult = false;
 const screenScroll = { catalog: 0, collection: 0, scanner: 0 };
 
 function status(id, message, error = false) {
@@ -25,6 +26,7 @@ function icon(name) {
 }
 function storageControls() {
   $('add-submit').disabled = !storeReady || saving || !activeCard;
+  $('scan-result-add').disabled = !storeReady || saving || !activeCard;
   $('export-backup').disabled = !storeReady || saving;
   $('backup-import').disabled = !storeReady || saving;
   $('import-confirm').disabled = !storeReady || saving || !pendingImport;
@@ -163,26 +165,49 @@ for (const id of ['browse-language', 'browse-field']) $(id).addEventListener('ch
 function closeDetail() {
   detailGeneration++; detailAbort?.abort(); detailAbort = null; activeCard = null; storageControls();
   priceGeneration++; priceAbort?.abort(); priceAbort = null;
+  scanResult = false; $('card-dialog').classList.remove('scan-result');
 }
 $('detail-close').addEventListener('click', () => $('card-dialog').close());
-$('card-dialog').addEventListener('close', closeDetail);
-$('card-dialog').addEventListener('cancel', closeDetail);
+$('card-dialog').addEventListener('close', () => { const resumeScanner = scanResult; closeDetail(); if (resumeScanner) navigate('scanner'); });
+$('scan-result-rescan').addEventListener('click', () => $('card-dialog').close());
+$('scan-result-home').addEventListener('click', () => { scanResult = false; $('card-dialog').close(); navigate('catalog'); });
+$('scan-result-details').addEventListener('click', () => {
+  $('card-dialog').classList.remove('scan-result'); $('scan-result-summary').hidden = true; $('detail-content').hidden = false;
+  status('detail-status', 'Vérifie la version, la finition et l’état avant l’ajout.');
+});
 function displayDetail(card) {
   activeCard = card; $('detail-title').textContent = card.name;
   const caption = document.createElement('p'); caption.textContent = card.images.length ? 'Chargement de l’image…' : 'Image indisponible';
   $('detail-art').replaceChildren(artwork(card.images, card.name, (source) => { caption.textContent = source; }), caption);
   $('detail-identity').textContent = `${card.setName} (${card.setCode}) · N° ${card.number} · ${card.language}`;
   $('detail-rarity').textContent = card.rarity;
+  $('scan-result-art').replaceChildren(artwork(card.images, card.name));
+  $('scan-result-name').textContent = card.name;
+  $('scan-result-version').textContent = `${card.setName} · ${card.number}`;
+  $('scan-result-rarity').textContent = card.rarity || 'Carte reconnue';
+  const language = { FR: ['🇫🇷', 'Français'], EN: ['🇬🇧', 'Anglais'], JP: ['🇯🇵', 'Japonais'] }[card.language] || [card.language, card.language];
+  $('scan-result-language').textContent = language[0]; $('scan-result-language').setAttribute('aria-label', language[1]);
+  status('scan-result-status', '');
   const available = [...card.finishes, 'Non précisée'];
   $('add-finish').replaceChildren(...available.map((finish) => { const option = document.createElement('option'); option.value = finish; option.textContent = finish; return option; }));
   // Start unspecified: no holo/reverse inferred from metadata or image.
   $('add-finish').value = 'Non précisée'; $('add-condition').value = 'NM';
-  $('add-quantity').value = '1'; $('add-price').value = ''; $('add-verified').checked = false;
+  $('add-quantity').value = '1'; $('add-price').value = ''; $('add-verified').checked = scanResult;
   $('purchase-options').open = false;
   $('detail-to-collection').hidden = true; $('detail-content').hidden = false;
-  status('detail-status', 'Vérifie l’impression avant l’ajout.'); storageControls();
+  status('detail-status', scanResult ? 'Carte reconnue.' : 'Vérifie l’impression avant l’ajout.'); storageControls();
   quotes = card.quotes || []; renderPrices();
   if (!Object.hasOwn(card, 'quotes')) status('market-status', 'Prix en attente de lecture à la source. Actualiser, ou mettre à jour le serveur de test.');
+}
+function renderScanPrice() {
+  const quote = quotes.find((item) => item.provider === 'Cardmarket' && Number.isFinite(item.trend))
+    || quotes.find((item) => Number.isFinite(item.trend)) || quotes.find((item) => Number.isFinite(item.low));
+  const amount = Number.isFinite(quote?.trend) ? quote.trend : quote?.low;
+  $('scan-result-price').textContent = quote && Number.isFinite(amount)
+    ? new Intl.NumberFormat('fr-FR', { style: 'currency', currency: quote.currency }).format(amount) : 'Prix indisponible';
+  $('scan-result-price-label').textContent = quote ? `${quote.provider} · ${quote.label}` : 'Aucun repère de marché pour cette version';
+  $('scan-result-market').hidden = !quote;
+  $('scan-result-market').textContent = quote?.provider === 'Cardmarket' ? 'CM' : quote?.provider === 'TCGplayer' ? 'TCG' : quote?.provider?.slice(0, 3).toUpperCase() || '';
 }
 function renderPrices() {
   const finish = $('add-finish').value;
@@ -210,6 +235,7 @@ function renderPrices() {
     : activeCard?.language === 'JP' ? 'Pas de source tarifaire japonaise qualifiée intégrée pour cette impression.'
     : quotes.length ? 'Aucun prix fourni pour cette finition.' : 'Prix non renseignés par la source pour cette carte.');
   $('market-refresh').disabled = !activeCard || Boolean(priceAbort);
+  if (scanResult) renderScanPrice();
 }
 async function refreshPrices() {
   if (!activeCard) return;
@@ -230,9 +256,11 @@ async function refreshPrices() {
 $('market-refresh').addEventListener('click', refreshPrices);
 $('add-finish').addEventListener('change', renderPrices);
 $('add-condition').addEventListener('change', renderPrices);
-async function openCard(id, snapshot) {
-  closeDetail(); const generation = detailGeneration;
-  $('detail-content').hidden = true; $('detail-title').textContent = 'Chargement de la fiche…';
+async function openCard(id, snapshot, source = '') {
+  closeDetail(); scanResult = source === 'scanner'; $('card-dialog').classList.toggle('scan-result', scanResult);
+  const generation = detailGeneration;
+  $('detail-content').hidden = true; $('scan-result-summary').hidden = !scanResult; $('detail-title').textContent = 'Chargement de la fiche…';
+  if (scanResult) { $('scan-result-art').replaceChildren(); $('scan-result-name').textContent = 'Carte reconnue'; $('scan-result-version').textContent = 'Chargement de la version…'; $('scan-result-rarity').textContent = 'Carte reconnue'; $('scan-result-language').textContent = ''; $('scan-result-market').hidden = true; $('scan-result-price').textContent = 'Prix en cours…'; $('scan-result-price-label').textContent = ''; status('scan-result-status', ''); }
   status('detail-status', snapshot ? 'Fiche sauvegardée dans ta collection.' : 'Lecture de la fiche TCGdex…');
   if (!$('card-dialog').open) $('card-dialog').showModal();
   document.dispatchEvent(new CustomEvent('tracktcg:navigate', { detail: 'detail' }));
@@ -243,10 +271,13 @@ async function openCard(id, snapshot) {
     if (generation !== detailGeneration) return;
     displayDetail(card);
   } catch (error) {
-    if (generation === detailGeneration && !controller.signal.aborted) status('detail-status', `${error.message} Ferme la fiche et réessaie.`, true);
+    if (generation === detailGeneration && !controller.signal.aborted) {
+      status('detail-status', `${error.message} Ferme la fiche et réessaie.`, true);
+      if (scanResult) { $('scan-result-name').textContent = 'Fiche indisponible'; $('scan-result-version').textContent = error.message; $('scan-result-price').textContent = '—'; $('scan-result-price-label').textContent = ''; $('scan-result-add').disabled = true; }
+    }
   } finally { if (generation === detailGeneration) detailAbort = null; }
 }
-document.addEventListener('tracktcg:open-card', (event) => openCard(event.detail.id));
+document.addEventListener('tracktcg:open-card', (event) => openCard(event.detail.id, undefined, event.detail.source));
 $('detail-to-collection').addEventListener('click', () => { $('card-dialog').close(); navigate('collection'); });
 
 function renderCollection() {
@@ -315,12 +346,13 @@ $('add-form').addEventListener('submit', async (event) => {
   try {
     const input = { card: activeCard, quantity: Number($('add-quantity').value), finish: $('add-finish').value,
       condition: $('add-condition').value, purchasePriceCents: parsePurchasePrice($('add-price').value) };
-    status('detail-status', 'Sauvegarde en cours…');
+    status('detail-status', 'Sauvegarde en cours…'); if (scanResult) status('scan-result-status', 'Ajout en cours…');
     await mutate((current) => addEntries(current, input), 'Collection mise à jour.');
     if (generation !== detailGeneration) return;
+    if (scanResult) { $('card-dialog').close(); return; }
     notice('detail-status', `${input.quantity} exemplaire(s) ajouté(s).`);
     $('detail-to-collection').hidden = false; $('add-verified').checked = false;
-  } catch (error) { if (generation === detailGeneration) status('detail-status', error.message, true); }
+  } catch (error) { if (generation === detailGeneration) { status('detail-status', error.message, true); if (scanResult) status('scan-result-status', error.message, true); } }
 });
 
 $('export-backup').addEventListener('click', () => {
